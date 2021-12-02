@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Final_Year_Project.Data
+namespace Restaurant.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

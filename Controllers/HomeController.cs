@@ -1,13 +1,13 @@
-﻿using Final_Year_Project.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Restaurant.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Final_Year_Project.Controllers
+namespace Restaurant.Controllers
 {
     public class HomeController : Controller
     {

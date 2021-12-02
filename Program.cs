@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Final_Year_Project
+namespace Restaurant
 {
     public class Program
     {
