@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant.Data;
 
 namespace Restaurant.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211203102202_FirstModels")]
+    partial class FirstModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -313,9 +315,12 @@ namespace Restaurant.Data.Migrations
 
             modelBuilder.Entity("Restaurant.Models.Allergy", b =>
                 {
-                    b.HasOne("Restaurant.Models.FoodChain", null)
+                    b.HasOne("Restaurant.Models.FoodChain", "FoodChain")
                         .WithMany("Allergy")
-                        .HasForeignKey("FoodChainID");
+                        .HasForeignKey("FoodChainID")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("FoodChain");
                 });
 
             modelBuilder.Entity("Restaurant.Models.FoodChain", b =>

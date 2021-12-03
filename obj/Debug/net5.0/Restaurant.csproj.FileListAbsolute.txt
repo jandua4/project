@@ -196,3 +196,13 @@ C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Error.cshtml.g.cs
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\Allergies\Create.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\Allergies\Delete.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\Allergies\Details.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\Allergies\Edit.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\Allergies\Index.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Create.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Delete.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Details.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Edit.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Index.cshtml.g.cs

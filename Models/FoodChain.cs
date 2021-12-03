@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Models
 {
-    public class Restaurant
+    public class FoodChain
     {
-        public int RestaurantID { get; set; }
+        public int FoodChainID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DbSet<Allergy> Allergy { get; set; }
