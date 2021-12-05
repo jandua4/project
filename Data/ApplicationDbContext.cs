@@ -15,21 +15,25 @@ namespace Restaurant.Data
         }
         public DbSet<FoodChain> FoodChains { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
+        public DbSet<UserAllergySelection> UserAllergySelections { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FoodChain>().ToTable("FoodChain");
-            modelBuilder.Entity<Allergy>().ToTable("Allergy");
-
-            // Food Chain
             modelBuilder.Entity<FoodChain>()
-                .HasMany(a => a.Allergy);
+                .HasMany(a => a.Allergies)
+                .WithMany(f => f.FoodChains)
+                .UsingEntity(j => j.ToTable("AllergyFoodChain"));
             modelBuilder.Entity<FoodChain>()
+                .ToTable("FoodChain")
                 .HasKey(f => f.FoodChainID);
 
-            // Allergy
+            modelBuilder.Entity<UserAllergySelection>()
+                .ToTable("UserAllergySelection")
+                .HasKey(u => u.ID);
+
             modelBuilder.Entity<Allergy>()
+                .ToTable("Allergy")
                 .HasKey(a => a.AllergyID);
 
             base.OnModelCreating(modelBuilder);

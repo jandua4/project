@@ -3,21 +3,38 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant.Data;
 
 namespace Restaurant.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211203231656_AllergiesToStrings")]
+    partial class AllergiesToStrings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AllergyFoodChain", b =>
+                {
+                    b.Property<int>("AllergiesAllergyID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FoodChainsFoodChainID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AllergiesAllergyID", "FoodChainsFoodChainID");
+
+                    b.HasIndex("FoodChainsFoodChainID");
+
+                    b.ToTable("AllergyFoodChain");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -242,9 +259,6 @@ namespace Restaurant.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AllergyID")
-                        .HasColumnType("int");
-
                     b.Property<string>("AllergyOne")
                         .HasColumnType("nvarchar(max)");
 
@@ -267,9 +281,22 @@ namespace Restaurant.Data.Migrations
 
                     b.HasKey("FoodChainID");
 
-                    b.HasIndex("AllergyID");
-
                     b.ToTable("FoodChain");
+                });
+
+            modelBuilder.Entity("AllergyFoodChain", b =>
+                {
+                    b.HasOne("Restaurant.Models.Allergy", null)
+                        .WithMany()
+                        .HasForeignKey("AllergiesAllergyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Restaurant.Models.FoodChain", null)
+                        .WithMany()
+                        .HasForeignKey("FoodChainsFoodChainID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -321,20 +348,6 @@ namespace Restaurant.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Restaurant.Models.FoodChain", b =>
-                {
-                    b.HasOne("Restaurant.Models.Allergy", "Allergy")
-                        .WithMany("FoodChains")
-                        .HasForeignKey("AllergyID");
-
-                    b.Navigation("Allergy");
-                });
-
-            modelBuilder.Entity("Restaurant.Models.Allergy", b =>
-                {
-                    b.Navigation("FoodChains");
                 });
 #pragma warning restore 612, 618
         }
