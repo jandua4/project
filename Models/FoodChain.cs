@@ -38,6 +38,9 @@ namespace Restaurant.Models
         [Display(Name = "Nut Free Options?")]
         public string NutFreeOptions { get; set; }
 
+        [Display(Name = "Other Allergies Accommodated")]
+        public string OtherOptions { get; set; }
+
         // Navigation
         public ICollection<Allergy> Allergies { get; set; }
     }

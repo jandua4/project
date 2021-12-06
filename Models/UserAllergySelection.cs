@@ -12,7 +12,8 @@ namespace Restaurant.Models
 
         // Try to get users who have the customer role only (Optional)
         // Set ForeginKey property in Migration
-        public int UserID { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
 
         [Display(Name = "Gluten Free?")]
         public string GlutenFree { get; set; }

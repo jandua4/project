@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant.Data;
 
 namespace Restaurant.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211205140014_Rebuild")]
+    partial class Rebuild
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,9 +279,6 @@ namespace Restaurant.Data.Migrations
                     b.Property<string>("NutFreeOptions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OtherOptions")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("VeganOptions")
                         .HasColumnType("nvarchar(max)");
 
@@ -307,9 +306,8 @@ namespace Restaurant.Data.Migrations
                     b.Property<string>("NutFree")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserID")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Vegan")
                         .HasColumnType("nvarchar(max)");

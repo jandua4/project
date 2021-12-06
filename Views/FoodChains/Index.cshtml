@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Restaurant.Models.FoodChain>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodChainName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlutenFreeOptions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VegetarianOptions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VeganOptions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DairyFreeOptions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NutFreeOptions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherOptions)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodChainName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenuLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GlutenFreeOptions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VegetarianOptions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VeganOptions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DairyFreeOptions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NutFreeOptions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherOptions)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FoodChainID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FoodChainID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FoodChainID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
