@@ -20,9 +20,21 @@ namespace Restaurant.Controllers
         }
 
         // GET: FoodChains
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.FoodChains.ToListAsync());
+
+            var foodchains = from f in _context.FoodChains
+                             select f;
+
+            ViewData["CurrentFilter"] = searchString;
+
+            // Search function
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                foodchains = foodchains.Where(f => f.FoodChainName.Contains(searchString));
+            }
+
+            return View(await foodchains.ToListAsync());
         }
 
         // GET: FoodChains/Details/5
