@@ -22,7 +22,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FoodChainName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSort"]">@Html.DisplayNameFor(model => model.FoodChainName)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -31,19 +31,19 @@
                 @Html.DisplayNameFor(model => model.MenuLink)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GlutenFreeOptions)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["GFSort"]">@Html.DisplayNameFor(model => model.GlutenFreeOptions)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VegetarianOptions)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["VegeSort"]">@Html.DisplayNameFor(model => model.VegetarianOptions)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VeganOptions)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["VeganSort"]">@Html.DisplayNameFor(model => model.VeganOptions)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DairyFreeOptions)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DFSort"]">@Html.DisplayNameFor(model => model.DairyFreeOptions)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NutFreeOptions)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NFSort"]">@Html.DisplayNameFor(model => model.NutFreeOptions)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OtherOptions)

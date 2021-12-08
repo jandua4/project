@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Data;
 using Restaurant.Models;
+using Restaurant.ViewModels;
 
 namespace Restaurant.Controllers
 {
@@ -20,21 +21,70 @@ namespace Restaurant.Controllers
         }
 
         // GET: FoodChains
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
 
+            // Sort Functionality
+            ViewData["NameSort"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["GFSort"] = sortOrder == "GlutenFreeOptions" ? "gf_desc" : "GlutenFreeOptions";
+            ViewData["VegeSort"] = sortOrder == "VegetarianOptions" ? "vege_desc" : "VegetarianOptions";
+            ViewData["VeganSort"] = sortOrder == "VeganOptions" ? "vegan_desc" : "VeganOptions";
+            ViewData["DFSort"] = sortOrder == "DairyFreeOptions" ? "dairy_desc" : "DairyFreeOptions";
+            ViewData["NFSort"] = sortOrder == "NutFreeOptions" ? "nut_desc" : "NutFreeOptions";
+
+            // Call FoodChains model and include Allergies model
             var foodchains = from f in _context.FoodChains
                              select f;
 
-            ViewData["CurrentFilter"] = searchString;
-
             // Search function
+            ViewData["CurrentFilter"] = searchString;
             if (!string.IsNullOrEmpty(searchString))
             {
                 foodchains = foodchains.Where(f => f.FoodChainName.Contains(searchString));
             }
 
-            return View(await foodchains.ToListAsync());
+            // Switch case for sorting results
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    foodchains = foodchains.OrderByDescending(s => s.FoodChainName);
+                    break;
+                case "GlutenFreeOptions":
+                    foodchains = foodchains.OrderBy(s => s.GlutenFreeOptions);
+                    break;
+                case "gf_desc":
+                    foodchains = foodchains.OrderByDescending(s => s.GlutenFreeOptions);
+                    break;
+                case "VegetarianOptions":
+                    foodchains = foodchains.OrderBy(s => s.VegetarianOptions);
+                    break;
+                case "vege_desc":
+                    foodchains = foodchains.OrderByDescending(s => s.VegetarianOptions);
+                    break;
+                case "VeganOptions":
+                    foodchains = foodchains.OrderBy(s => s.VeganOptions);
+                    break;
+                case "vegan_desc":
+                    foodchains = foodchains.OrderByDescending(s => s.VeganOptions);
+                    break;
+                case "DairyFreeOptions":
+                    foodchains = foodchains.OrderBy(s => s.DairyFreeOptions);
+                    break;
+                case "dairy_desc":
+                    foodchains = foodchains.OrderByDescending(s => s.DairyFreeOptions);
+                    break;
+                case "NutFreeOptions":
+                    foodchains = foodchains.OrderBy(s => s.NutFreeOptions);
+                    break;
+                case "nut_desc":
+                    foodchains = foodchains.OrderByDescending(s => s.NutFreeOptions);
+                    break;
+                default:
+                    foodchains = foodchains.OrderBy(s => s.FoodChainName);
+                    break;
+            }
+
+            return View(await foodchains.AsNoTracking().ToListAsync());
         }
 
         // GET: FoodChains/Details/5
