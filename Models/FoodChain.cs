@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,8 +23,8 @@ namespace Restaurant.Models
         public string Description { get; set; }
 
         // Menu Filepath. Should be nullable
-        [Display(Name = "Menu")]
-        public string MenuLink { get; set; }
+        [Display(Name = "Restaurant Menu")]
+        public byte[] MenuLink { get; set; }
 
         [Display(Name = "Gluten Free Options?")]
         public string GlutenFreeOptions { get; set; }

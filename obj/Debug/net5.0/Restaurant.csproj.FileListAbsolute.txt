@@ -206,3 +206,4 @@ C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Details.cshtml.g.cs
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Edit.cshtml.g.cs
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Index.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\Upload.cshtml.g.cs

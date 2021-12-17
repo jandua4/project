@@ -62,7 +62,10 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MenuLink)
+                    @if (item.MenuLink != null)
+                    {
+                        <p>Menu Provided</p>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GlutenFreeOptions)
@@ -83,9 +86,10 @@
                     @Html.DisplayFor(modelItem => item.OtherOptions)
                 </td>
                 <td>
+                    <a asp-action="Upload" asp-route-id="@item.FoodChainID">Upload</a> |
                     <a asp-action="Edit" asp-route-id="@item.FoodChainID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.FoodChainID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.FoodChainID">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.FoodChainID">Delete</a> |
                 </td>
             </tr>
         }
