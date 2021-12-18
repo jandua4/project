@@ -103,21 +103,7 @@ namespace Restaurant.Controllers
             var foodChain = await _context.FoodChains
                 .FirstOrDefaultAsync(m => m.FoodChainID == id);
 
-            if (foodChain.MenuLink == null)
-            {
-                return View(foodChain);
-            }
-            else
-            {
-                byte[] byteArr = foodChain.MenuLink;
-                string mimeType = "application/pdf";
-                return new FileContentResult(byteArr, mimeType)
-                {
-                    FileDownloadName = $"Menu.pdf"
-                };
-            }
-
-            //return View(foodChain);
+            return View(foodChain);
         }
 
         // GET: FoodChains/Create
@@ -250,10 +236,11 @@ namespace Restaurant.Controllers
         // POST upload action
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upload(IFormFile file, FoodChain foodChain)
+        public async Task<IActionResult> Upload(IFormFile file, [Bind("FoodChainID,FoodChainName,Description,GlutenFreeOptions,VegetarianOptions,VeganOptions,DairyFreeOptions,NutFreeOptions,OtherOptions")] FoodChain foodChain)
         {
             if (file != null)
             {
+                // Modify Max Length
                 if (file.Length > 0 /*&& file.Length < 300000 */)
                 {
                     using (var target = new MemoryStream())
@@ -269,18 +256,44 @@ namespace Restaurant.Controllers
                 // TODO:: Need to change the error message
                 else
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Index));
                 }
             }
             // Not reaching this else statement - meaning that (file != null)
             // TODO:: Need to change this error message
             else
             {
-                return NotFound();
+                RedirectToAction(nameof(Index));
             }
 
             return RedirectToAction(nameof(Index));
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Download(int? id)
+        {
+            var foodChain = await _context.FoodChains.FirstOrDefaultAsync(x => x.FoodChainID == id);
+            if (foodChain == null)
+            {
+                return NotFound();
+            }
+            if (foodChain.MenuLink == null)
+            {
+                return View(foodChain);
+            }
+            else
+            {
+                byte[] byteArr = foodChain.MenuLink;
+                string mimeType = "application/pdf";
+                return new FileContentResult(byteArr, mimeType)
+                {
+                    FileDownloadName = $"Menu.pdf"
+                };
+            }
+        }
+
+
 
         private bool FoodChainExists(int id)
         {
