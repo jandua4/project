@@ -26,6 +26,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: FoodChains
+        // TODO:: Add pagination or lazy loading for restaurant entries
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
 
@@ -138,6 +139,7 @@ namespace Restaurant.Controllers
             }
 
             var foodChain = await _context.FoodChains.FindAsync(id);
+
             if (foodChain == null)
             {
                 return NotFound();
@@ -190,6 +192,7 @@ namespace Restaurant.Controllers
 
             var foodChain = await _context.FoodChains
                 .FirstOrDefaultAsync(m => m.FoodChainID == id);
+
             if (foodChain == null)
             {
                 return NotFound();
@@ -225,6 +228,7 @@ namespace Restaurant.Controllers
 
             var foodChain = await _context.FoodChains
                 .FirstOrDefaultAsync(m => m.FoodChainID == id);
+
             if (foodChain == null)
             {
                 return NotFound();
@@ -240,8 +244,8 @@ namespace Restaurant.Controllers
         {
             if (file != null)
             {
-                // Modify Max Length
-                if (file.Length > 0 /*&& file.Length < 300000 */)
+                // Max Length is less than 5MB
+                if (file.Length > 0 && file.Length < 5242880)
                 {
                     using (var target = new MemoryStream())
                     {
@@ -252,28 +256,34 @@ namespace Restaurant.Controllers
                         await _context.SaveChangesAsync();
                     }
                 }
-                // Currently returning not found - which means that the something is wrong with this inside IF statement
-                // TODO:: Need to change the error message
+                // Add an error associated with the file upload if it does not meet the requirements of the IF statement above.
                 else
                 {
-                    return RedirectToAction(nameof(Index));
+                    ModelState.AddModelError(nameof(foodChain.MenuLink), "This file is not usable. Please try a different file that is less than 5MB.");
+                    return View(foodChain);
                 }
             }
-            // Not reaching this else statement - meaning that (file != null)
-            // TODO:: Need to change this error message
+            // Null files are allowed if the restaurant does not want to provide a menu.
             else
             {
                 RedirectToAction(nameof(Index));
             }
-
+            // Return to Index page after code execution.
             return RedirectToAction(nameof(Index));
         }
 
-
+        /*
+        *  This is the controller action to handle downloading menus.
+        *  Checks if a menu is not null, and then converts the varbinary data to a pdf and generates a file.
+        *  Custom written action
+        *  Author: Aman Jandu
+        */
         [HttpPost]
         public async Task<IActionResult> Download(int? id)
         {
-            var foodChain = await _context.FoodChains.FirstOrDefaultAsync(x => x.FoodChainID == id);
+            var foodChain = await _context.FoodChains
+                .FirstOrDefaultAsync(x => x.FoodChainID == id);
+
             if (foodChain == null)
             {
                 return NotFound();
@@ -284,16 +294,15 @@ namespace Restaurant.Controllers
             }
             else
             {
+                // Generate PDF from the varbinary data in the database
                 byte[] byteArr = foodChain.MenuLink;
                 string mimeType = "application/pdf";
                 return new FileContentResult(byteArr, mimeType)
                 {
-                    FileDownloadName = $"Menu.pdf"
+                    FileDownloadName = $"{foodChain.FoodChainName} Menu.pdf"
                 };
             }
         }
-
-
 
         private bool FoodChainExists(int id)
         {

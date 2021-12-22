@@ -72,6 +72,7 @@
                 <p>To remove the menu, simply submit this form without providing a file.</p>
                 <label asp-for="MenuLink" class="control-label"></label>
                 <input type="file" asp-for="MenuLink" class="form-control" name="file" accept=".pdf" />
+                @Html.ValidationMessageFor(model => model.MenuLink)
                 <span asp-validation-for="MenuLink" class="text-danger"></span>
                 <br />
                 <input type="submit" class="btn btn-dark" />
