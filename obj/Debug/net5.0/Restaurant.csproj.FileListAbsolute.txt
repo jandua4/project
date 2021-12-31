@@ -211,3 +211,4 @@ C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\bin\Debug\net5.0\System.Drawing.Common.dll
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\Scans\Index.cshtml.g.cs

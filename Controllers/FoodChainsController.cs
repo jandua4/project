@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Restaurant.Data;
 using Restaurant.Models;
-using Restaurant.ViewModels;
 
 namespace Restaurant.Controllers
 {

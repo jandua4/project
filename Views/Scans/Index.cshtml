@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Scan Menu";
+}
+
+<h1>Scan</h1>
+
+<h4>Scan a menu for allergens:</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="ScanMenu" asp-controller="Scans" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="control-label">Upload menu to scan here:</label>
+                <input type="file" class="form-control" name="file" />
+                <br />
+                <input type="submit" class="btn btn-dark" value="Scan" name="ScanMenu" />
+                <!-- remember to display a span here that tells the user their pdf is scanning -->
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <textarea asp-for="@ViewData["MenuText"]" name="MenuText" style="width: 800px; height: 400px;"></textarea>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
