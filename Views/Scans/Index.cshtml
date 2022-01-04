@@ -24,7 +24,8 @@
         <textarea asp-for="@ViewData["MenuText"]" name="MenuText" class="scan-result"></textarea>
         <div class="scan-findings">
             <h5>This menu contains results for the following:</h5>
-            <p>Check for Gluten-Free options: <span>@ViewData["glutenCheck"]</span></p>
+            <p>Check for Gluten-Free options: <span>@ViewData["glutenfreeCheck"]</span></p>
+            <p>Check for Gluten-Containing ingredients: <span>@ViewData["glutenCheck"]</span></p>
             <p>Check for Dairy: <span>@ViewData["dairyCheck"]</span></p>
             <p>Check for Nuts: <span>@ViewData["nutCheck"]</span></p>
             <p>Check for Soy: <span>@ViewData["soyCheck"]</span></p>

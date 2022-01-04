@@ -72,16 +72,22 @@ namespace Restaurant.Controllers
                         ViewData["MenuText"] = result.Text;
 
                         // Arrays of strings to check against.
-                        string[] glutenCheck = { "glutenfree", "gluten-free", "gluten free", "gf" };
+                        string[] glutenfreeCheck = { "glutenfree", "gluten-free", "gluten free", "gf" };
+                        string[] glutenCheck = { "gluten", "wheat", "barley", "durum", "emmer", "semolina", "spelt", "farina", "farro", "graham", "rye", "triticale", "malt", "yeast", "bread", "pastry", "pastries", "crackers", "cereal", "croutons", "beer" };
                         string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose" };
                         string[] nutCheck = { "nut", "nuts", "peanuts" };
                         string[] soyCheck = { "soy", "soya", "tofu", "edamame" };
-                        string[] otherCheck = { "celery", "shellfish", "vegetarian", "vegan", "halal", "kosher", " egg" }; // Egg includes a preceding space to prevent overlap with 'veggie'
+                        string[] otherCheck = { "celery", "mustard", "shellfish", "mollusc", "crustacean", "sulphur", "sulfur", "sesame", "vegetarian", "vegan", "halal", "kosher", " egg" }; // Egg includes a preceding space to prevent overlap with 'veggie'
 
                         // If statements for each array to check against.
+                        if (glutenfreeCheck.Any(result.Text.Contains))
+                        {
+                            ViewData["glutenfreeCheck"] = "This menu mentions gluten-free.";
+                        }
+
                         if (glutenCheck.Any(result.Text.Contains))
                         {
-                            ViewData["glutenCheck"] = "This menu mentions gluten-free.";
+                            ViewData["glutenCheck"] = "This menu mentions gluten-containing ingredients.";
                         }
 
                         if (dairyCheck.Any(result.Text.Contains))
