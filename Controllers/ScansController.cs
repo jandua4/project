@@ -11,8 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
 using Restaurant.Data;
 using Restaurant.Models;
-
-
+using System.Diagnostics;
 
 namespace Restaurant.Controllers
 {
@@ -38,9 +37,6 @@ namespace Restaurant.Controllers
             // Setting up the upload path for the menu
             string upload = Path.Combine(hostingEnvironment.ContentRootPath, "Menus");
 
-            // Declare the MenuText empty for processing later
-            string MenuText = "";
-
             // As long as the file is greater than 0 in length, execute the following code to upload to the directory
             if (file.Length > 0)
             {
@@ -52,7 +48,7 @@ namespace Restaurant.Controllers
 
                 /* 
                 * Everything above this point is for saving the file to a temporary directory first for processing later
-                * Everything below this poing if processing the PDFs via OCR
+                * Everything below this point is processing the PDFs via OCR
                 */
 
                 var Ocr = new IronTesseract();
@@ -74,14 +70,42 @@ namespace Restaurant.Controllers
 
                         ViewData["MenuText"] = result.Text;
 
-                        /*
-                        string[] allergyList = { "gluten", "dairy", "celery", "shellfish", "soy", "nut" };
-                        // if result contains any entry from this array, return the matching issues
-                        if (allergyList.All(MenuText.Contains))
+
+                        string[] glutenCheck = { "glutenfree", "gluten-free", "gluten free", "gf" };
+                        string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose" };
+                        string[] nutCheck = { "nut", "nuts", "peanuts" };
+                        string[] soyCheck = { "soy", "soya", "tofu", "edamame" };
+                        string[] otherCheck = { "celery", "shellfish", "vegetarian", "vegan", "halal", "kosher" };
+
+                        if (glutenCheck.Any(result.Text.Contains))
                         {
-                            Console.WriteLine("Yes");
+                            ViewData["glutenCheck"] = "This menu mentions gluten-free.";
                         }
-                        */
+
+                        if (dairyCheck.Any(result.Text.Contains))
+                        {
+                            ViewData["dairyCheck"] = "This menu mentions dairy-containing ingredients.";
+                        }
+
+                        if (nutCheck.Any(result.Text.Contains))
+                        {
+                            ViewData["nutCheck"] = "This menu mentions nuts.";
+                        }
+
+                        if (soyCheck.Any(result.Text.Contains))
+                        {
+                            ViewData["soyCheck"] = "This menu mentions soy, tofu or edamame.";
+                        }
+
+                        foreach (var item in otherCheck)
+                        {
+                            // Extra parameter to ignore case sensitivity
+                            if (result.Text.Contains(item, StringComparison.OrdinalIgnoreCase))
+                            {
+                                ViewData["otherCheck"] += item + ", ";
+                            }
+                        }
+
                     }
 
                     // Delete File from directory

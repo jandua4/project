@@ -10,13 +10,23 @@
     <div class="col-md-4">
         <form method="post" asp-action="ScanMenu" asp-controller="Scans" enctype="multipart/form-data">
             <div class="form-group">
-                <label class="control-label">Upload menu to scan here:</label>
-                <input type="file" class="form-control" name="file" />
+                <label class="control-label upload-label">Upload menu to scan here:</label>
+                <input type="file" class="form-control scan-input" name="file" />
                 <br />
-                <input type="submit" class="btn btn-dark" value="Scan" name="ScanMenu" />
-                <!-- remember to display a span here that tells the user their pdf is scanning -->
+                <input type="submit" class="btn btn-dark scan-btn" value="Scan" name="ScanMenu" />
+                <span class="scan-check">Provide a file to scan.</span>
             </div>
         </form>
+        <span class="scan-span">Scanning Menu...</span>
+        <p>Documents can take some time to scan - please be patient.</p>
+        <div>
+            <h5>This menu contains results for the following:</h5>
+            <p>Check for Gluten-Free options: <span>@ViewData["glutenCheck"]</span></p>
+            <p>Check for Dairy: <span>@ViewData["dairyCheck"]</span></p>
+            <p>Check for Nuts: <span>@ViewData["nutCheck"]</span></p>
+            <p>Check for Soy: <span>@ViewData["soyCheck"]</span></p>
+            <p>Other things that this menu mentions: @ViewData["otherCheck"]</p>
+        </div>
     </div>
     <div class="col-md-8">
         <textarea asp-for="@ViewData["MenuText"]" name="MenuText" style="width: 800px; height: 400px;"></textarea>

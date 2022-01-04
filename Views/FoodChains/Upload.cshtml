@@ -18,12 +18,12 @@
                 <input readonly asp-for="FoodChainName" class="form-control" />
                 <span asp-validation-for="FoodChainName" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display: none;">
+            <div class="form-group d-none">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display: none;">
+            <div class="form-group d-none">
                 <label asp-for="GlutenFreeOptions" class="control-label"></label>
                 <select asp-for="GlutenFreeOptions" class="form-control">
                     <option>Yes</option>
@@ -31,7 +31,7 @@
                 </select>
                 <span asp-validation-for="GlutenFreeOptions" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display: none;">
+            <div class="form-group d-none">
                 <label asp-for="VegetarianOptions" class="control-label"></label>
                 <select asp-for="VegetarianOptions" class="form-control">
                     <option>Yes</option>
@@ -39,7 +39,7 @@
                 </select>
                 <span asp-validation-for="VegetarianOptions" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display: none;">
+            <div class="form-group d-none">
                 <label asp-for="VeganOptions" class="control-label"></label>
                 <select asp-for="VeganOptions" class="form-control">
                     <option>Yes</option>
@@ -47,7 +47,7 @@
                 </select>
                 <span asp-validation-for="VeganOptions" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display: none;">
+            <div class="form-group d-none">
                 <label asp-for="DairyFreeOptions" class="control-label"></label>
                 <select asp-for="DairyFreeOptions" class="form-control">
                     <option>Yes</option>
@@ -55,7 +55,7 @@
                 </select>
                 <span asp-validation-for="DairyFreeOptions" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display: none;">
+            <div class="form-group d-none">
                 <label asp-for="NutFreeOptions" class="control-label"></label>
                 <select asp-for="NutFreeOptions" class="form-control">
                     <option>Yes</option>
@@ -63,7 +63,7 @@
                 </select>
                 <span asp-validation-for="NutFreeOptions" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display: none;">
+            <div class="form-group d-none">
                 <label class="control-label">Please provide the name of any other allergies you accommodate e.g. "Shellfish".</label>
                 <input asp-for="OtherOptions" class="form-control" />
                 <span asp-validation-for="OtherOptions" class="text-danger"></span>
