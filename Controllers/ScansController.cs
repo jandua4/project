@@ -55,28 +55,30 @@ namespace Restaurant.Controllers
                 using (var input = new OcrInput(filePath))
                 {
 
-                    // TODO: Change action here or make the Scan button unclickable with JavaScript
+                    // Scan button is unclickable with JS. Left in as a failsafe.
                     if (input == null)
                     {
                         return NotFound();
                     }
                     else
                     {
-                        // Sharpen file and make clearer for processing
+                        // Sharpen file and make clearer for processing.
                         input.DeNoise();
                         input.Deskew();
 
                         var result = Ocr.Read(input);
 
+                        // Send results to the View.
                         ViewData["MenuText"] = result.Text;
 
-
+                        // Arrays of strings to check against.
                         string[] glutenCheck = { "glutenfree", "gluten-free", "gluten free", "gf" };
                         string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose" };
                         string[] nutCheck = { "nut", "nuts", "peanuts" };
                         string[] soyCheck = { "soy", "soya", "tofu", "edamame" };
-                        string[] otherCheck = { "celery", "shellfish", "vegetarian", "vegan", "halal", "kosher" };
+                        string[] otherCheck = { "celery", "shellfish", "vegetarian", "vegan", "halal", "kosher", " egg" }; // Egg includes a preceding space to prevent overlap with 'veggie'
 
+                        // If statements for each array to check against.
                         if (glutenCheck.Any(result.Text.Contains))
                         {
                             ViewData["glutenCheck"] = "This menu mentions gluten-free.";

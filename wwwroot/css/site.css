@@ -78,3 +78,14 @@ body {
 .scan-check {
     display: none;
 }
+
+.scan-result {
+    width: 800px;
+    height: 400px;
+    display: none; /* This will hide it, but the dimensions are set in case it needs to be shown at any point. */
+}
+
+.scan-findings span {
+    font-weight: bold;
+    color: red;
+}

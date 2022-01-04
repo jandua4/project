@@ -19,22 +19,22 @@
         </form>
         <span class="scan-span">Scanning Menu...</span>
         <p>Documents can take some time to scan - please be patient.</p>
-        <div>
+    </div>
+    <div class="col-md-8">
+        <textarea asp-for="@ViewData["MenuText"]" name="MenuText" class="scan-result"></textarea>
+        <div class="scan-findings">
             <h5>This menu contains results for the following:</h5>
             <p>Check for Gluten-Free options: <span>@ViewData["glutenCheck"]</span></p>
             <p>Check for Dairy: <span>@ViewData["dairyCheck"]</span></p>
             <p>Check for Nuts: <span>@ViewData["nutCheck"]</span></p>
             <p>Check for Soy: <span>@ViewData["soyCheck"]</span></p>
-            <p>Other things that this menu mentions: @ViewData["otherCheck"]</p>
+            <p>Other things that this menu mentions: <span>@ViewData["otherCheck"]</span></p>
         </div>
-    </div>
-    <div class="col-md-8">
-        <textarea asp-for="@ViewData["MenuText"]" name="MenuText" style="width: 800px; height: 400px;"></textarea>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-controller="Home">Back to Main Menu</a>
 </div>
 
 @section Scripts {
