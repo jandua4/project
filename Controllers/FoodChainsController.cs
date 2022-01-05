@@ -26,9 +26,9 @@ namespace Restaurant.Controllers
 
         // GET: FoodChains
         // TODO:: Add pagination or lazy loading for restaurant entries
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
-
+            ViewData["CurrentSort"] = sortOrder;
             // Sort Functionality
             ViewData["NameSort"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["GFSort"] = sortOrder == "glutenfree" ? "gf_desc" : "glutenfree";
@@ -36,6 +36,16 @@ namespace Restaurant.Controllers
             ViewData["VeganSort"] = sortOrder == "vegan" ? "vegan_desc" : "vegan";
             ViewData["DFSort"] = sortOrder == "dairyfree" ? "dairy_desc" : "dairyfree";
             ViewData["NFSort"] = sortOrder == "nutfree" ? "nut_desc" : "nutfree";
+
+            // Page number is 1 unless there's a search string
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
             // Call FoodChains model
             var foodchains = from f in _context.FoodChains
@@ -89,7 +99,11 @@ namespace Restaurant.Controllers
                     break;
             }
 
-            return View(await foodchains.AsNoTracking().ToListAsync());
+            // Number of records per page before paginating
+            int pageSize = 10;
+
+            //return View(await foodchains.AsNoTracking().ToListAsync());
+            return View(await PaginatedList<FoodChain>.CreateAsync(foodchains.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: FoodChains/Details/5

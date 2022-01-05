@@ -32,6 +32,7 @@ namespace Restaurant.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ScanMenu(IFormFile file)
         {
             // Setting up the upload path for the menu
@@ -73,7 +74,7 @@ namespace Restaurant.Controllers
 
                         // Arrays of strings to check against.
                         string[] glutenfreeCheck = { "glutenfree", "gluten-free", "gluten free", "gf" };
-                        string[] glutenCheck = { "gluten", "wheat", "barley", "durum", "emmer", "semolina", "spelt", "farina", "farro", "graham", "rye", "triticale", "malt", "yeast", "bread", "pastry", "pastries", "crackers", "cereal", "croutons", "beer" };
+                        string[] glutenCheck = { "gluten", "wheat", "barley", "durum", "emmer", "semolina", "spelt", "farina", "farro", "graham", "rye", "triticale", "malt", "yeast", "bread", "pastry", "pastries", "cracker", "cereal", "crouton", "beer" };
                         string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose" };
                         string[] nutCheck = { "nut", "nuts", "peanuts" };
                         string[] soyCheck = { "soy", "soya", "tofu", "edamame" };
