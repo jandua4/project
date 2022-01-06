@@ -28,6 +28,12 @@ namespace Restaurant.Controllers
             return View();
         }
 
+        // Liability View
+        public IActionResult Liability()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

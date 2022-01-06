@@ -25,7 +25,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: FoodChains
-        // TODO:: Add pagination or lazy loading for restaurant entries
+        // Includes pagination, sorting and searching
         public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;

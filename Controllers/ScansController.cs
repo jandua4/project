@@ -31,6 +31,17 @@ namespace Restaurant.Controllers
             return View();
         }
 
+        /*
+         * This is an action which handles scanning files to find allergens.
+         * This method makes use of Optical Character Recognition (OCR) to read characters in a file.
+         * The file provided gets saved to a directory temporarily, then processed by OCR, then deleted afterwards.
+         * The file gets checked against multiple arrays with strings. If there are matches, they are returned to the view.
+         * JavaScript prevents the button from being clicked if no file is provided, and also prevents clicks mid-scan.
+         * If for any reason a file does not get removed from the Menus folder, then a crontab to empty the folder periodically should take care of it.
+         * 
+         * Author: Aman Jandu
+         */
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ScanMenu(IFormFile file)
@@ -47,10 +58,8 @@ namespace Restaurant.Controllers
                     file.CopyTo(fileStream);
                 }
 
-                /* 
-                * Everything above this point is for saving the file to a temporary directory first for processing later
-                * Everything below this point is processing the PDFs via OCR
-                */
+                // Everything above this point is for saving the file to a temporary directory first for processing later
+                // Everything below this point is processing the PDFs via OCR
 
                 var Ocr = new IronTesseract();
                 using (var input = new OcrInput(filePath))
