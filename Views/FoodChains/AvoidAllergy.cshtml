@@ -1,0 +1,78 @@
+﻿@model Restaurant.ViewModels.AllergyFoodChain
+
+<h1>Avoid Allergies</h1>
+
+<div class="form-group">
+    @Html.DropDownListFor(x => Model.Allergies, new SelectList(Model.Allergies, "AllergyID", "Name"))
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Restaurant Menu
+            </th>
+            <th>
+                Gluten Free Options?
+            </th>
+            <th>
+                Vegetarian Options?
+            </th>
+            <th>
+                Vegan Options?
+            </th>
+            <th>
+                Dairy Free Options?
+            </th>
+            <th>
+                Nut Free Options?
+            </th>
+            <th>
+                Other Allergies Accommodated
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var item in Model.FoodChains)
+           {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodChainName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @if (item.MenuLink != null)
+                        {
+                        <p>Menu Provided</p>
+                        }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GlutenFreeOptions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VegetarianOptions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VeganOptions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DairyFreeOptions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NutFreeOptions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtherOptions)
+                </td>
+            </tr>
+           }
+    </tbody>
+</table>

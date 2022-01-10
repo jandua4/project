@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Restaurant.Data;
 using Restaurant.Models;
 
 namespace Restaurant.ViewModels
 {
     public class AllergyFoodChain
     {
-        public int ID { get; set; }
-        public int FoodChainID { get; set; }
-        public int AllergyID { get; set; }
+        public IEnumerable<FoodChain> FoodChains { get; set; }
+        public IEnumerable<Allergy> Allergies { get; set; }
 
-        // Navigation
-        public FoodChain FoodChain { get; set; }
-        public Allergy Allergy { get; set; }
     }
+
 }

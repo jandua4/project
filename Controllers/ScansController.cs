@@ -64,7 +64,6 @@ namespace Restaurant.Controllers
                 var Ocr = new IronTesseract();
                 using (var input = new OcrInput(filePath))
                 {
-
                     // Scan button is unclickable with JS. Left in as a failsafe.
                     if (input == null)
                     {
@@ -123,7 +122,6 @@ namespace Restaurant.Controllers
                                 ViewData["otherCheck"] += item + ", ";
                             }
                         }
-
                     }
 
                     // Delete File from directory

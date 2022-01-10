@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Restaurant.Data;
 using Restaurant.Models;
+using Restaurant.ViewModels;
 
 namespace Restaurant.Controllers
 {
@@ -28,8 +29,8 @@ namespace Restaurant.Controllers
         // Includes pagination, sorting and searching
         public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
-            ViewData["CurrentSort"] = sortOrder;
             // Sort Functionality
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSort"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["GFSort"] = sortOrder == "glutenfree" ? "gf_desc" : "glutenfree";
             ViewData["VegeSort"] = sortOrder == "vegetarian" ? "vege_desc" : "vegetarian";
@@ -37,7 +38,7 @@ namespace Restaurant.Controllers
             ViewData["DFSort"] = sortOrder == "dairyfree" ? "dairy_desc" : "dairyfree";
             ViewData["NFSort"] = sortOrder == "nutfree" ? "nut_desc" : "nutfree";
 
-            // Page number is 1 unless there's a search string
+            // Page number is set to 1 if there is a search string
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -321,5 +322,25 @@ namespace Restaurant.Controllers
         {
             return _context.FoodChains.Any(e => e.FoodChainID == id);
         }
+
+
+        // Allergy Avoidance View
+        public IActionResult AvoidAllergy()
+        {
+            // Allocates View Model Properties to _context Models
+            var viewModel = new AllergyFoodChain();
+            viewModel.FoodChains = _context.FoodChains
+                .OrderBy(f => f.FoodChainName);
+
+            viewModel.Allergies = _context.Allergies
+                .OrderBy(a => a.Name);
+
+
+            ViewData["AllergyID"] = new SelectList(_context.Allergies, "AllergyID", "Name");
+
+
+            return View(viewModel);
+        }
+
     }
 }

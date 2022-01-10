@@ -45,6 +45,6 @@ namespace Restaurant.Models
         public string OtherOptions { get; set; }
 
         // Navigation
-        public ICollection<Allergy> Allergies { get; set; }
+        public IEnumerable<Allergy> Allergies { get; set; }
     }
 }

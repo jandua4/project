@@ -21,10 +21,6 @@ namespace Restaurant.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FoodChain>()
-                .HasMany(a => a.Allergies)
-                .WithMany(f => f.FoodChains)
-                .UsingEntity(j => j.ToTable("AllergyFoodChain"));
-            modelBuilder.Entity<FoodChain>()
                 .ToTable("FoodChain")
                 .HasKey(f => f.FoodChainID);
 
