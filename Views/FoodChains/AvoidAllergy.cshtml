@@ -2,9 +2,20 @@
 
 <h1>Avoid Allergies</h1>
 
-<div class="form-group">
-    @Html.DropDownListFor(x => Model.Allergies, new SelectList(Model.Allergies, "AllergyID", "Name"))
-</div>
+<form method="get">
+    <div class="form-group">
+        <label>Select Allergy:</label>
+        <select class="custom-select-sm">
+            <option></option>
+            @foreach (var item in Model.Allergies)
+            {
+                <option>@Html.DisplayFor(modelItem => item.Name)</option>
+            }
+        </select>
+    </div>
+    <input type="submit" value="Search" class="search-btn" />
+</form>
+
 
 <table class="table">
     <thead>

@@ -81,6 +81,7 @@ namespace Restaurant.Controllers
                         ViewData["MenuText"] = result.Text;
 
                         // Arrays of strings to check against.
+                        // Optional TODO: check against Allergies database table to find
                         string[] glutenfreeCheck = { "glutenfree", "gluten-free", "gluten free", "gf" };
                         string[] glutenCheck = { "gluten", "wheat", "barley", "durum", "emmer", "semolina", "spelt", "farina", "farro", "graham", "rye", "triticale", "malt", "yeast", "bread", "pastry", "pastries", "cracker", "cereal", "crouton", "beer" };
                         string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose" };

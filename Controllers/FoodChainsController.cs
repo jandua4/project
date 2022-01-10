@@ -103,7 +103,6 @@ namespace Restaurant.Controllers
             // Number of records per page before paginating
             int pageSize = 10;
 
-            //return View(await foodchains.AsNoTracking().ToListAsync());
             return View(await PaginatedList<FoodChain>.CreateAsync(foodchains.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -318,13 +317,14 @@ namespace Restaurant.Controllers
             }
         }
 
-        private bool FoodChainExists(int id)
-        {
-            return _context.FoodChains.Any(e => e.FoodChainID == id);
-        }
-
-
-        // Allergy Avoidance View
+        /*
+         * Custom Written Action
+         * View to return a list of restaurants
+         * This view returns restaurants that match the allergy criteria in the dropdown box (generated from allergies database table).
+         * Utilises a ViewModel to handle multiple modes in a single view
+         * 
+         * Author: Aman Jandu
+         */
         public IActionResult AvoidAllergy()
         {
             // Allocates View Model Properties to _context Models
@@ -335,11 +335,22 @@ namespace Restaurant.Controllers
             viewModel.Allergies = _context.Allergies
                 .OrderBy(a => a.Name);
 
-
             ViewData["AllergyID"] = new SelectList(_context.Allergies, "AllergyID", "Name");
+
+            /*
+             * TODO:
+             * - Database query to show restaurants that match the allergy criteria
+             */
+
 
 
             return View(viewModel);
+        }
+
+
+        private bool FoodChainExists(int id)
+        {
+            return _context.FoodChains.Any(e => e.FoodChainID == id);
         }
 
     }
