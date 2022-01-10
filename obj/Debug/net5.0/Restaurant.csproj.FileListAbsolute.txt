@@ -214,3 +214,8 @@ C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\Scans\Index.cshtml.g.cs
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\Home\Liability.cshtml.g.cs
 C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\FoodChains\AvoidAllergy.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\AllergyGroups\Create.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\AllergyGroups\Delete.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\AllergyGroups\Details.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\AllergyGroups\Edit.cshtml.g.cs
+C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\obj\Debug\net5.0\Razor\Views\AllergyGroups\Index.cshtml.g.cs

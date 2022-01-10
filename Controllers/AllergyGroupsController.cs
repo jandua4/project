@@ -10,26 +10,22 @@ using Restaurant.Models;
 
 namespace Restaurant.Controllers
 {
-    public class AllergiesController : Controller
+    public class AllergyGroupsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public AllergiesController(ApplicationDbContext context)
+        public AllergyGroupsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Allergies
+        // GET: AllergyGroups
         public async Task<IActionResult> Index()
         {
-            var allergies = from a in _context.Allergies
-                            .Include(g => g.AllergyGroup)
-                            select a;
-
-            return View(await allergies.ToListAsync());
+            return View(await _context.AllergyGroups.ToListAsync());
         }
 
-        // GET: Allergies/Details/5
+        // GET: AllergyGroups/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,41 +33,39 @@ namespace Restaurant.Controllers
                 return NotFound();
             }
 
-            var allergy = await _context.Allergies
-                .Include(g => g.AllergyGroup)
-                .FirstOrDefaultAsync(m => m.AllergyID == id);
-            if (allergy == null)
+            var allergyGroup = await _context.AllergyGroups
+                .FirstOrDefaultAsync(m => m.GroupID == id);
+            if (allergyGroup == null)
             {
                 return NotFound();
             }
 
-            return View(allergy);
+            return View(allergyGroup);
         }
 
-        // GET: Allergies/Create
+        // GET: AllergyGroups/Create
         public IActionResult Create()
         {
-            ViewData["GroupID"] = new SelectList(_context.AllergyGroups, "GroupID", "GroupName");
             return View();
         }
 
-        // POST: Allergies/Create
+        // POST: AllergyGroups/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AllergyID,Name,GroupID")] Allergy allergy)
+        public async Task<IActionResult> Create([Bind("GroupID,GroupName")] AllergyGroup allergyGroup)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(allergy);
+                _context.Add(allergyGroup);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(allergy);
+            return View(allergyGroup);
         }
 
-        // GET: Allergies/Edit/5
+        // GET: AllergyGroups/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,24 +73,22 @@ namespace Restaurant.Controllers
                 return NotFound();
             }
 
-            var allergy = await _context.Allergies.FindAsync(id);
-            if (allergy == null)
+            var allergyGroup = await _context.AllergyGroups.FindAsync(id);
+            if (allergyGroup == null)
             {
                 return NotFound();
             }
-
-            ViewData["GroupID"] = new SelectList(_context.AllergyGroups, "GroupID", "GroupName");
-            return View(allergy);
+            return View(allergyGroup);
         }
 
-        // POST: Allergies/Edit/5
+        // POST: AllergyGroups/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AllergyID,Name,GroupID")] Allergy allergy)
+        public async Task<IActionResult> Edit(int id, [Bind("GroupID,GroupName")] AllergyGroup allergyGroup)
         {
-            if (id != allergy.AllergyID)
+            if (id != allergyGroup.GroupID)
             {
                 return NotFound();
             }
@@ -105,12 +97,12 @@ namespace Restaurant.Controllers
             {
                 try
                 {
-                    _context.Update(allergy);
+                    _context.Update(allergyGroup);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AllergyExists(allergy.AllergyID))
+                    if (!AllergyGroupExists(allergyGroup.GroupID))
                     {
                         return NotFound();
                     }
@@ -121,10 +113,10 @@ namespace Restaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(allergy);
+            return View(allergyGroup);
         }
 
-        // GET: Allergies/Delete/5
+        // GET: AllergyGroups/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,30 +124,30 @@ namespace Restaurant.Controllers
                 return NotFound();
             }
 
-            var allergy = await _context.Allergies
-                .FirstOrDefaultAsync(m => m.AllergyID == id);
-            if (allergy == null)
+            var allergyGroup = await _context.AllergyGroups
+                .FirstOrDefaultAsync(m => m.GroupID == id);
+            if (allergyGroup == null)
             {
                 return NotFound();
             }
 
-            return View(allergy);
+            return View(allergyGroup);
         }
 
-        // POST: Allergies/Delete/5
+        // POST: AllergyGroups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var allergy = await _context.Allergies.FindAsync(id);
-            _context.Allergies.Remove(allergy);
+            var allergyGroup = await _context.AllergyGroups.FindAsync(id);
+            _context.AllergyGroups.Remove(allergyGroup);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AllergyExists(int id)
+        private bool AllergyGroupExists(int id)
         {
-            return _context.Allergies.Any(e => e.AllergyID == id);
+            return _context.AllergyGroups.Any(e => e.GroupID == id);
         }
     }
 }

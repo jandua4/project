@@ -13,8 +13,11 @@ namespace Restaurant.Models
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
+        // AllergyGroup Foreign Key
+        public int? GroupID { get; set; }
 
         // Navigation
+        public AllergyGroup AllergyGroup { get; set; }
         public ICollection<FoodChain> FoodChains { get; set; }
     }
 }
