@@ -84,7 +84,7 @@ namespace Restaurant.Controllers
                         // Optional TODO: check against Allergies database table to find
                         string[] glutenfreeCheck = { "glutenfree", "gluten-free", "gluten free", "gf" };
                         string[] glutenCheck = { "gluten", "wheat", "barley", "durum", "emmer", "semolina", "spelt", "farina", "farro", "graham", "rye", "triticale", "malt", "yeast", "bread", "pastry", "pastries", "cracker", "cereal", "crouton", "beer" };
-                        string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose" };
+                        string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose", "yoghurt", "butter" };
                         string[] nutCheck = { "nut", "nuts", "peanuts" };
                         string[] soyCheck = { "soy", "soya", "tofu", "edamame" };
                         string[] otherCheck = { "celery", "mustard", "shellfish", "mollusc", "crustacean", "sulphur", "sulfur", "sesame", "vegetarian", "vegan", "halal", "kosher", " egg" }; // Egg includes a preceding space to prevent overlap with 'veggie'

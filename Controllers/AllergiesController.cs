@@ -20,13 +20,36 @@ namespace Restaurant.Controllers
         }
 
         // GET: Allergies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string currentFilter, int? pageNumber)
         {
+            // Page number is set to 1 if there is a search string
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             var allergies = from a in _context.Allergies
                             .Include(g => g.AllergyGroup)
+                            .OrderBy(g => g.AllergyGroup.GroupName)
                             select a;
 
-            return View(await allergies.ToListAsync());
+            // Search function
+            ViewData["CurrentFilter"] = searchString;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Where allergy name or group matches the string
+                allergies = allergies.Where(g => g.Name.Contains(searchString) 
+                || g.AllergyGroup.GroupName.Contains(searchString));
+            }
+
+            // Number of records per page before paginating
+            int pageSize = 30;
+
+            return View(await PaginatedList<Allergy>.CreateAsync(allergies.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Allergies/Details/5
@@ -85,7 +108,7 @@ namespace Restaurant.Controllers
                 return NotFound();
             }
 
-            ViewData["GroupID"] = new SelectList(_context.AllergyGroups, "GroupID", "GroupName");
+            ViewData["GroupID"] = new SelectList(_context.AllergyGroups, "GroupID", "GroupName", allergy.GroupID);
             return View(allergy);
         }
 

@@ -20,9 +20,34 @@ namespace Restaurant.Controllers
         }
 
         // GET: AllergyGroups
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string currentFilter, int? pageNumber)
         {
-            return View(await _context.AllergyGroups.ToListAsync());
+            // Page number is set to 1 if there is a search string
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            var allergyGroup = from g in _context.AllergyGroups
+                               .OrderBy(g => g.GroupName)
+                               select g;
+
+            // Search function
+            ViewData["CurrentFilter"] = searchString;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                allergyGroup = allergyGroup.Where(g => g.GroupName.Contains(searchString));
+            }
+
+            // Number of records per page before paginating
+            int pageSize = 10;
+
+
+            return View(await PaginatedList<AllergyGroup>.CreateAsync(allergyGroup.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: AllergyGroups/Details/5
