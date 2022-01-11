@@ -59,7 +59,9 @@ namespace Restaurant.Controllers
             }
 
             var allergyGroup = await _context.AllergyGroups
+                .Include(a => a.Allergies)
                 .FirstOrDefaultAsync(m => m.GroupID == id);
+
             if (allergyGroup == null)
             {
                 return NotFound();

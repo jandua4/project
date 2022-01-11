@@ -325,25 +325,85 @@ namespace Restaurant.Controllers
          * 
          * Author: Aman Jandu
          */
-        public IActionResult AvoidAllergy()
+        public IActionResult AvoidAllergy(string selectedValue)
         {
             // Allocates View Model Properties to _context Models
-            var viewModel = new AllergyFoodChain();
+            var viewModel = new AllergyGroupFoodChain();
             viewModel.FoodChains = _context.FoodChains
                 .OrderBy(f => f.FoodChainName);
 
-            viewModel.Allergies = _context.Allergies
-                .OrderBy(a => a.Name);
+            viewModel.AllergyGroups = _context.AllergyGroups
+                .OrderBy(a => a.GroupName);
 
-            ViewData["AllergyID"] = new SelectList(_context.Allergies, "AllergyID", "Name");
+            viewModel.Allergies = _context.Allergies
+                .Include(g => g.AllergyGroup);
 
             /*
              * TODO:
              * - Database query to show restaurants that match the allergy criteria
              */
 
+            if (selectedValue == "" 
+                || selectedValue == "None")
+            {
+                return View(viewModel);
+            }
 
+            // Gluten-Free results only
+            if (selectedValue == "Gluten")
+            {
+                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.GlutenFreeOptions == "Yes");
+            }
 
+            // Vegetarian results only
+            if (selectedValue == "Vegetarian")
+            {
+                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.VegetarianOptions == "Yes");
+            }
+            
+            // Vegetarian results only
+            if (selectedValue == "Vegan")
+            {
+                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.VeganOptions == "Yes");
+            }
+
+            // Dairy-Free results only
+            if (selectedValue == "Dairy")
+            {
+                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.DairyFreeOptions == "Yes");
+            }
+
+            // Nut-Free results only
+            if (selectedValue == "Nuts")
+            {
+                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.NutFreeOptions == "Yes");
+            }
+
+            // Search through all other allergies
+            if (selectedValue != "" || 
+                selectedValue != "Gluten" || 
+                selectedValue != "Vegetarian" || 
+                selectedValue != "Vegan" || 
+                selectedValue != "Dairy" || 
+                selectedValue != "Nuts")
+            {
+                var query = from a in _context.Allergies
+                            join g in _context.AllergyGroups 
+                            on a.GroupID equals g.GroupID
+                            select new { GroupID = g.GroupID, AllergyName = a.Name };
+
+                foreach (var item in query)
+                {
+                    var GroupID = item.GroupID;
+                    var Name = item.AllergyName.ToString();
+
+                    viewModel.FoodChains = viewModel.FoodChains;
+                        //.Where(f => f.OtherOptions.Contains(Name));
+                }
+
+                
+            }
+            
             return View(viewModel);
         }
 

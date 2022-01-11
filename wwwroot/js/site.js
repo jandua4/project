@@ -29,4 +29,9 @@ $(document).ready(function () {
         $('.scan-check').hide();
     });
 
+    // On change of the Allergy Group dropdown, assign the value of the selected option to a hidden input to be detected by the controller
+    $('#groupSelect').on('change', function () {
+        $('#hiddenGroupSelect').val($(this).find('option:selected').text());
+    });
+
 });
