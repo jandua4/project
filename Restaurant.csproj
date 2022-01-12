@@ -10,7 +10,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Users\Create.cshtml" />
+    <Content Remove="Views\Users\Indexes.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Data\DbInitializer.cs" />
+    <None Include="Views\Users\Create.cshtml" />
+    <None Include="Views\Users\Indexes.cshtml" />
+    <None Include="Views\Roles\Create.cshtml" />
+    <None Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
