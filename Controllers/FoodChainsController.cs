@@ -320,15 +320,16 @@ namespace Restaurant.Controllers
         /*
          * Custom Written Action
          * View to return a list of restaurants
-         * This view returns restaurants that match the allergy criteria in the dropdown box (generated from allergies database table).
+         * This view returns restaurants that match the allergy criteria in the dropdown box (generated from allergy groups and allergies database tables).
          * Utilises a ViewModel to handle multiple modes in a single view
          * 
          * Author: Aman Jandu
          */
-        public IActionResult AvoidAllergy(string selectedValue)
+        public IActionResult AvoidAllergy(int? allergyselect, string selectedValue)
         {
             // Allocates View Model Properties to _context Models
             var viewModel = new AllergyGroupFoodChain();
+
             viewModel.FoodChains = _context.FoodChains
                 .OrderBy(f => f.FoodChainName);
 
@@ -343,65 +344,92 @@ namespace Restaurant.Controllers
              * - Database query to show restaurants that match the allergy criteria
              */
 
-            if (selectedValue == "" 
-                || selectedValue == "None")
+            if (allergyselect != null)
             {
-                return View(viewModel);
-            }
-
-            // Gluten-Free results only
-            if (selectedValue == "Gluten")
-            {
-                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.GlutenFreeOptions == "Yes");
-            }
-
-            // Vegetarian results only
-            if (selectedValue == "Vegetarian")
-            {
-                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.VegetarianOptions == "Yes");
-            }
-            
-            // Vegetarian results only
-            if (selectedValue == "Vegan")
-            {
-                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.VeganOptions == "Yes");
-            }
-
-            // Dairy-Free results only
-            if (selectedValue == "Dairy")
-            {
-                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.DairyFreeOptions == "Yes");
-            }
-
-            // Nut-Free results only
-            if (selectedValue == "Nuts")
-            {
-                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.NutFreeOptions == "Yes");
-            }
-
-            // Search through all other allergies
-            if (selectedValue != "" || 
-                selectedValue != "Gluten" || 
-                selectedValue != "Vegetarian" || 
-                selectedValue != "Vegan" || 
-                selectedValue != "Dairy" || 
-                selectedValue != "Nuts")
-            {
-                var query = from a in _context.Allergies
-                            join g in _context.AllergyGroups 
-                            on a.GroupID equals g.GroupID
-                            select new { GroupID = g.GroupID, AllergyName = a.Name };
-
-                foreach (var item in query)
+                // If string is empty
+                if (string.IsNullOrEmpty(selectedValue))
                 {
-                    var GroupID = item.GroupID;
-                    var Name = item.AllergyName.ToString();
-
                     viewModel.FoodChains = viewModel.FoodChains;
-                        //.Where(f => f.OtherOptions.Contains(Name));
                 }
 
-                
+                // If string is 'None'
+                if (selectedValue == "None")
+                {
+                    viewModel.FoodChains = viewModel.FoodChains;
+                }
+
+                // Gluten-Free results only
+                if (selectedValue == "Gluten")
+                {
+                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.GlutenFreeOptions == "Yes");
+                }
+
+                // Vegetarian results only
+                if (selectedValue == "Vegetarian")
+                {
+                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.VegetarianOptions == "Yes");
+                }
+
+                // Vegetarian results only
+                if (selectedValue == "Vegan")
+                {
+                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.VeganOptions == "Yes");
+                }
+
+                // Dairy-Free results only
+                if (selectedValue == "Dairy")
+                {
+                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.DairyFreeOptions == "Yes");
+                }
+
+                // Nut-Free results only
+                if (selectedValue == "Nuts")
+                {
+                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.NutFreeOptions == "Yes");
+                }
+
+
+                // Search through all other allergies
+                if ((allergyselect != null) &&
+                    (!string.IsNullOrEmpty(selectedValue)) &&
+                    (selectedValue != "") &&
+                    (selectedValue != "None") &&
+                    (selectedValue != "Gluten") &&
+                    (selectedValue != "Vegetarian") &&
+                    (selectedValue != "Vegan") &&
+                    (selectedValue != "Dairy") &&
+                    (selectedValue != "Nuts"))
+                {
+                    /*
+                     * If the selected option isn't empty and does not match the other options
+                     * return all results from the chosen Allergy Group that has associated allergies
+                     * and check them against the value of the "OtherOptions" column
+                     */
+
+                    // Select all allergies where the Allergy.GroupID == the value of the allergyselect dropdown. Join on the Allergy Groups table where GroupID = GroupID. Get all Allergy.Names
+                    var names = from a in viewModel.Allergies
+                                where a.GroupID == allergyselect
+                                join g in viewModel.AllergyGroups on a.GroupID equals g.GroupID
+                                select a.Name;
+
+                    // For each returned allergy, append it to a hidden element for searching.
+                    foreach (var name in names)
+                    {
+                        ViewData["AllergyNames"] += name + ", ";
+                    }
+
+                    // Split the results string by comma and space (in case the allergy name has a space)
+                    string results = ViewData["AllergyNames"].ToString();
+                    string[] matchingAllergies = results.Split(new string[] { ", "}, StringSplitOptions.None);
+
+                    // Return results where OtherOptions != null and intersects with the matching allergies. Finds allergies separated by commas OR commas and spaces
+                    viewModel.FoodChains = viewModel.FoodChains
+                        .Where(f => f.OtherOptions != null &&
+                        f.OtherOptions.Split(new string[] { ", " }, StringSplitOptions.None).Intersect(matchingAllergies).Any() ||
+                        f.OtherOptions != null &&
+                        f.OtherOptions.Split(',').Intersect(matchingAllergies).Any());
+
+                }
             }
             
             return View(viewModel);
