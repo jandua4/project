@@ -35,5 +35,7 @@ $(document).ready(function () {
     });
     // On load (after submitting form) set the default value to an empty string to match the query the button would perform on the next click if no other option was chosen
     $('#groupSelect').val("");
+    // Set textbox to empty on page load
+    $('#searchString').val("");
 
 });

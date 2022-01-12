@@ -5,6 +5,7 @@
 <form method="get">
     <div class="form-group">
         <p>
+            Search By Restaurant Name: <input id="searchString" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" /> | 
             Select Allergy Group:
             @Html.DropDownList("allergyselect", new SelectList(Model.AllergyGroups, "GroupID", "GroupName"), new { @id = "groupSelect" })
             <input type="hidden" id="hiddenGroupSelect" name="selectedValue" />
@@ -44,11 +45,12 @@
             <th>
                 Other Allergies Accommodated
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.FoodChains)
-        {
+       @foreach (var item in Model.FoodChains)
+           {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.FoodChainName)
@@ -58,9 +60,9 @@
                 </td>
                 <td>
                     @if (item.MenuLink != null)
-                    {
+                        {
                         <p>Menu Provided</p>
-                    }
+                        }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GlutenFreeOptions)
@@ -80,9 +82,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.OtherOptions)
                 </td>
+                <td><a asp-action="Details" asp-route-id="@item.FoodChainID">Details</a></td>
             </tr>
-        }
+           }
     </tbody>
 </table>
+
 
 <p class="d-none">@ViewData["AllergyNames"]</p>

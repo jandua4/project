@@ -321,12 +321,13 @@ namespace Restaurant.Controllers
          * Custom Written Action
          * View to return a list of restaurants
          * This view returns restaurants that match the allergy criteria in the dropdown box (generated from allergy groups and allergies database tables).
-         * Utilises a ViewModel to handle multiple modes in a single view
+         * Utilises a ViewModel to handle multiple models in a single view
          * 
          * Author: Aman Jandu
          */
-        public IActionResult AvoidAllergy(int? allergyselect, string selectedValue)
+        public IActionResult AvoidAllergy(int? allergyselect, string selectedValue, string searchString)
         {
+
             // Allocates View Model Properties to _context Models
             var viewModel = new AllergyGroupFoodChain();
 
@@ -338,6 +339,14 @@ namespace Restaurant.Controllers
 
             viewModel.Allergies = _context.Allergies
                 .Include(g => g.AllergyGroup);
+
+            // Search box filter
+            ViewData["CurrentFilter"] = searchString;
+            // Search function
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.FoodChainName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+            }
 
             /*
              * TODO:
