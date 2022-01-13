@@ -9,7 +9,7 @@ namespace Restaurant.Controllers
 {
     public class RolesController : Controller
     {
-        RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public RolesController(RoleManager<IdentityRole> roleManager)
         {

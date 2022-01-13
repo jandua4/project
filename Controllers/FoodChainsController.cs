@@ -62,45 +62,21 @@ namespace Restaurant.Controllers
             }
 
             // Switch case for sorting results
-            switch (sortOrder)
+            foodchains = sortOrder switch
             {
-                case "name_desc":
-                    foodchains = foodchains.OrderByDescending(s => s.FoodChainName);
-                    break;
-                case "glutenfree":
-                    foodchains = foodchains.OrderBy(s => s.GlutenFreeOptions);
-                    break;
-                case "gf_desc":
-                    foodchains = foodchains.OrderByDescending(s => s.GlutenFreeOptions);
-                    break;
-                case "vegetarian":
-                    foodchains = foodchains.OrderBy(s => s.VegetarianOptions);
-                    break;
-                case "vege_desc":
-                    foodchains = foodchains.OrderByDescending(s => s.VegetarianOptions);
-                    break;
-                case "vegan":
-                    foodchains = foodchains.OrderBy(s => s.VeganOptions);
-                    break;
-                case "vegan_desc":
-                    foodchains = foodchains.OrderByDescending(s => s.VeganOptions);
-                    break;
-                case "dairyfree":
-                    foodchains = foodchains.OrderBy(s => s.DairyFreeOptions);
-                    break;
-                case "dairy_desc":
-                    foodchains = foodchains.OrderByDescending(s => s.DairyFreeOptions);
-                    break;
-                case "nutfree":
-                    foodchains = foodchains.OrderBy(s => s.NutFreeOptions);
-                    break;
-                case "nut_desc":
-                    foodchains = foodchains.OrderByDescending(s => s.NutFreeOptions);
-                    break;
-                default:
-                    foodchains = foodchains.OrderBy(s => s.FoodChainName);
-                    break;
-            }
+                "name_desc" => foodchains.OrderByDescending(s => s.FoodChainName),
+                "glutenfree" => foodchains.OrderBy(s => s.GlutenFreeOptions),
+                "gf_desc" => foodchains.OrderByDescending(s => s.GlutenFreeOptions),
+                "vegetarian" => foodchains.OrderBy(s => s.VegetarianOptions),
+                "vege_desc" => foodchains.OrderByDescending(s => s.VegetarianOptions),
+                "vegan" => foodchains.OrderBy(s => s.VeganOptions),
+                "vegan_desc" => foodchains.OrderByDescending(s => s.VeganOptions),
+                "dairyfree" => foodchains.OrderBy(s => s.DairyFreeOptions),
+                "dairy_desc" => foodchains.OrderByDescending(s => s.DairyFreeOptions),
+                "nutfree" => foodchains.OrderBy(s => s.NutFreeOptions),
+                "nut_desc" => foodchains.OrderByDescending(s => s.NutFreeOptions),
+                _ => foodchains.OrderBy(s => s.FoodChainName),
+            };
 
             // Number of records per page before paginating
             int pageSize = 10;
@@ -335,16 +311,17 @@ namespace Restaurant.Controllers
         {
 
             // Allocates View Model Properties to _context Models
-            var viewModel = new AllergyGroupFoodChain();
+            var viewModel = new AllergyGroupFoodChain
+            {
+                FoodChains = _context.FoodChains
+                .OrderBy(f => f.FoodChainName),
 
-            viewModel.FoodChains = _context.FoodChains
-                .OrderBy(f => f.FoodChainName);
+                AllergyGroups = _context.AllergyGroups
+                .OrderBy(a => a.GroupName),
 
-            viewModel.AllergyGroups = _context.AllergyGroups
-                .OrderBy(a => a.GroupName);
-
-            viewModel.Allergies = _context.Allergies
-                .Include(g => g.AllergyGroup);
+                Allergies = _context.Allergies
+                .Include(g => g.AllergyGroup)
+            };
 
             // Search box filter
             ViewData["CurrentFilter"] = searchString;

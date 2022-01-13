@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\DbInitializer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Data\DbInitializer.cs" />
     <None Include="Views\Roles\Create.cshtml" />
     <None Include="Views\Roles\Index.cshtml" />
   </ItemGroup>

@@ -9,7 +9,7 @@ namespace Restaurant.Controllers
 {
     public class UsersController : Controller
     {
-        UserManager<IdentityUser> userManager;
+        private readonly UserManager<IdentityUser> userManager;
 
         public UsersController(UserManager<IdentityUser> userManager)
         {

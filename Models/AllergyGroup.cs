@@ -15,6 +15,6 @@ namespace Restaurant.Models
         public string GroupName { get; set; }
 
         // Multiple Allergies per Group
-        public ICollection<Allergy> Allergies { get; set; }
+        public virtual ICollection<Allergy> Allergies { get; set; }
     }
 }
