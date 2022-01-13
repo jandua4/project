@@ -1,5 +1,4 @@
 TODO::
-- Authorisation Policies on Every Controller Action
 - Privacy Policy
 - Database Seeder
 - Site Styling and Themes

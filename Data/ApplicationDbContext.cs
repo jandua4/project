@@ -16,7 +16,6 @@ namespace Restaurant.Data
         public DbSet<FoodChain> FoodChains { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
         public DbSet<AllergyGroup> AllergyGroups { get; set; }
-        public DbSet<UserAllergySelection> UserAllergySelections { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,10 +24,6 @@ namespace Restaurant.Data
             modelBuilder.Entity<FoodChain>()
                 .ToTable("FoodChain")
                 .HasKey(f => f.FoodChainID);
-
-            modelBuilder.Entity<UserAllergySelection>()
-                .ToTable("UserAllergySelection")
-                .HasKey(u => u.ID);
 
             // Allergies Table
             modelBuilder.Entity<Allergy>()

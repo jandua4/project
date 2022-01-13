@@ -26,8 +26,15 @@ using Restaurant.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\GDswo\Desktop\Folders\Productivity and Work\University\workspace\609it\Final Year Project\Views\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1868b1055114b7303d082b8654b883a3a9116cb2", @"/Views/FoodChains/AvoidAllergy.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9a59b7783d8b0512a9ae3ec4003f04bd353cebbb", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4d13f248a53660502ff72c6313477a5ca0c25306", @"/Views/_ViewImports.cshtml")]
     public class Views_FoodChains_AvoidAllergy : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<Restaurant.ViewModels.AllergyGroupFoodChain>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "AvoidAllergy", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -60,7 +67,7 @@ using Restaurant.Models;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n<h1>Avoid Allergies</h1>\r\n\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1868b1055114b7303d082b8654b883a3a9116cb24514", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1868b1055114b7303d082b8654b883a3a9116cb24762", async() => {
                 WriteLiteral("\r\n    <div class=\"form-group\">\r\n        <p>\r\n            Search By Restaurant Name: <input id=\"searchString\" type=\"text\" name=\"SearchString\"");
                 BeginWriteAttribute("value", " value=\"", 241, "\"", 275, 1);
 #nullable restore
@@ -80,7 +87,7 @@ WriteAttributeValue("", 249, ViewData["CurrentFilter"], 249, 26, false);
 #line hidden
 #nullable disable
                 WriteLiteral("\r\n            <input type=\"hidden\" id=\"hiddenGroupSelect\" name=\"selectedValue\" />\r\n            <input type=\"submit\" value=\"Search\" class=\"search-btn\" /> |\r\n            ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1868b1055114b7303d082b8654b883a3a9116cb26002", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1868b1055114b7303d082b8654b883a3a9116cb26250", async() => {
                     WriteLiteral("Back to Full List");
                 }
                 );
@@ -238,7 +245,7 @@ WriteAttributeValue("", 249, ViewData["CurrentFilter"], 249, 26, false);
 #line hidden
 #nullable disable
             WriteLiteral("\r\n                </td>\r\n                <td>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1868b1055114b7303d082b8654b883a3a9116cb213401", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1868b1055114b7303d082b8654b883a3a9116cb213649", async() => {
                 WriteLiteral("Details");
             }
             );
@@ -287,6 +294,8 @@ WriteAttributeValue("", 249, ViewData["CurrentFilter"], 249, 26, false);
             WriteLiteral("</p>");
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
+        public IAuthorizationService AuthorizationService { get; private set; }
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
         public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]

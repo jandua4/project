@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: AllergyGroups
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Index(string searchString, string currentFilter, int? pageNumber)
         {
             // Page number is set to 1 if there is a search string
@@ -51,6 +53,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: AllergyGroups/Details/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -71,6 +74,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: AllergyGroups/Create
+        [Authorize(Policy = "writepolicy")]
         public IActionResult Create()
         {
             return View();
@@ -93,6 +97,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: AllergyGroups/Edit/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -144,6 +149,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: AllergyGroups/Delete/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

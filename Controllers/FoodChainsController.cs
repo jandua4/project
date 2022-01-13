@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,6 +28,7 @@ namespace Restaurant.Controllers
 
         // GET: FoodChains
         // Includes pagination, sorting and searching
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             // Sort Functionality
@@ -121,6 +123,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: FoodChains/Create
+        [Authorize(Policy = "writepolicy")]
         public IActionResult Create()
         {
             return View();
@@ -144,6 +147,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: FoodChains/Edit/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -196,6 +200,7 @@ namespace Restaurant.Controllers
         }
 
         // GET: FoodChains/Delete/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -230,8 +235,9 @@ namespace Restaurant.Controllers
         *  Returns a view and handles upload processing.
         *  Custom written action
         *  Author: Aman Jandu
-        */ 
+        */
         // GET: FoodChains/Upload/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Upload(int? id)
         {
             if (id == null)
