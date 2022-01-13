@@ -13,7 +13,9 @@ namespace Restaurant.Models
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
+
         // AllergyGroup Foreign Key
+        [Display(Name = "Allergy Group")]
         public int? GroupID { get; set; }
 
         // Navigation

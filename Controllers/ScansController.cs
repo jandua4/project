@@ -87,7 +87,7 @@ namespace Restaurant.Controllers
                         string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose", "yoghurt", "butter" };
                         string[] nutCheck = { "nut", "nuts", "peanuts" };
                         string[] soyCheck = { "soy", "soya", "tofu", "edamame" };
-                        string[] otherCheck = { "celery", "mustard", "shellfish", "mollusc", "crustacean", "sulphur", "sulfur", "sesame", "vegetarian", "vegan", "halal", "kosher", " egg" }; // Egg includes a preceding space to prevent overlap with 'veggie'
+                        string[] otherCheck = { "celery", "mustard", "fish", "shellfish", "mollusc", "crustacean", "sulphur", "sulfur", "sesame", "vegetarian", "vegan", "halal", "kosher", " egg" }; // Egg includes a preceding space to prevent overlap with 'veggie'
 
                         // If statements for each array to check against.
                         if (glutenfreeCheck.Any(result.Text.Contains))
