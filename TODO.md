@@ -1,5 +1,4 @@
 TODO::
-- User Management Controller/View
 - Authorisation Policies on Every Controller Action
 - Privacy Policy
 - Database Seeder
