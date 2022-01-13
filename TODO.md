@@ -1,5 +1,4 @@
 TODO::
-- Database Seeder
 - Site Styling and Themes
 
 - Optionally modify ScansController to search for allergies in the database

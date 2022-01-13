@@ -10,60 +10,69 @@
     <h4>FoodChain</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FoodChainName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FoodChainName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MenuLink)
         </dt>
-        <dd class="col-sm-10">
-            <form method="post" asp-action="Download" asp-route-id="@Model.FoodChainID">
-                <input type="submit" class="btn btn-dark" value="Download" />
-            </form>
-        </dd>
-        <dt class = "col-sm-2">
+        @if (Model.MenuLink != null)
+        {
+            <dd class="col-sm-10">
+                <form method="post" asp-action="Download" asp-route-id="@Model.FoodChainID">
+                    <input type="submit" class="btn btn-dark" value="Download" />
+                </form>
+            </dd>
+        } else
+            {
+            <dd class="col-sm-10">
+                No Menu Provided
+            </dd>
+            }
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.GlutenFreeOptions)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.GlutenFreeOptions)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.VegetarianOptions)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.VegetarianOptions)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.VeganOptions)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.VeganOptions)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DairyFreeOptions)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DairyFreeOptions)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NutFreeOptions)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NutFreeOptions)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.OtherOptions)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.OtherOptions)
         </dd>
     </dl>
