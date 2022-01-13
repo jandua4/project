@@ -1,5 +1,4 @@
 TODO::
-- Privacy Policy
 - Database Seeder
 - Site Styling and Themes
 
