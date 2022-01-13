@@ -17,13 +17,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var role in Model)
+            @foreach (var user in Model)
             {
                 <tr>
-                    <td>@role.Id</td>
-                    <td>@role.UserName</td>
-                    <td>@role.Email</td>
-                    <td><a asp-action="Edit" asp-route-id="@role.Id">Edit</a></td>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td><a asp-action="Edit" asp-route-id="@user.Id">Edit</a></td>
                 </tr>
             }
         </tbody>

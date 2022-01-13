@@ -1,7 +1,9 @@
 TODO::
-- Optionally modify ScansController to search for allergies in the database
 - User Management Controller/View
+- Authorisation Policies on Every Controller Action
 - Privacy Policy
 - Database Seeder
 - Site Styling and Themes
-- ViewModel Pagination for the AvoidAllergy page
+
+- Optionally modify ScansController to search for allergies in the database
+- Optional ViewModel Pagination for the AvoidAllergy page
