@@ -2,10 +2,72 @@
     ViewData["Title"] = "Restaurant Search";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Restaurant Search</h1>
+<div class="carousel-container">
+    <div class="text-center welcome-title text-white font-weight-bold">
+        <h1>Welcome to Restaurant Search!</h1>
+    </div>
+
+    <div class="carousel-float">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="carousel-text-left">
+                    <h2><i>Here you will find a list of restaurants that accommodate allergies, intolerances and lifestyles</i></h2>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="carousel-text-right">
+                    <h2><i>Maybe you want to check if a menu has allergies hidden away? Use our scanner to find out!</i></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-carousel">
+        <div id="carouselControls" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselControls" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselControls" data-slide-to="1"></li>
+                <li data-target="#carouselControls" data-slide-to="2"></li>
+                <li data-target="#carouselControls" data-slide-to="3"></li>
+                <li data-target="#carouselControls" data-slide-to="4"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/img/cropped-home1.jpg" class="d-block w-100" alt="Dining Table">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/cropped-home2.jpg" class="d-block w-100" alt="Dressed Salad">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/cropped-home3.jpg" class="d-block w-100" alt="Egg Salad">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/cropped-home4.jpg" class="d-block w-100" alt="Chocolate Cheesecake">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/cropped-home5.jpg" class="d-block w-100" alt="Burger & Fries">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="home-content justify-content-center text-center text-white">
     <hr />
-    <br />
-    <p><a href="/FoodChains/AvoidAllergy">Show Me Restaurants!</a></p>
-    <p><a href="/Scans">Scan a Menu For Allergies</a></p>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/FoodChains/AvoidAllergy">
+                <div class="home-link restaurant">
+                    <p>Show Me Restaurants!</p>
+                </div>
+            </a>
+        </div>    
+        <div class="col-md-6">
+            <a href="/Scans">
+                <div class="home-link scan">
+                    <p>Scan a Menu For Allergies</p>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>

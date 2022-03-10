@@ -9,9 +9,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Restaurant</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,19 +21,19 @@
                     {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Allergies" asp-action="Index">Allergies</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Allergies" asp-action="Index">Allergies</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="FoodChains" asp-action="Index">Food Chains</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="FoodChains" asp-action="Index">Food Chains</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="AllergyGroups" asp-action="Index">Allergy Groups</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="AllergyGroups" asp-action="Index">Allergy Groups</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
                             </li>
                         </ul>
                     }
@@ -41,10 +41,10 @@
                     {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Scans" asp-action="Index">Scan a Menu</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="FoodChains" asp-action="AvoidAllergy">Show me Restaurants</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="FoodChains" asp-action="AvoidAllergy">Find Food Chains By Allergy</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Scans" asp-action="Index">Scan a Menu</a>
                             </li>
                         </ul>
                     }
@@ -53,17 +53,17 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer class="border-top footer text-muted bg-dark">
+        <div class="container text-light">
             &copy; 2022 - Restaurant - 
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            <a asp-area="" asp-controller="Home" asp-action="Liability" style="float: right;">Liability</a>
+            <a asp-area="" asp-controller="Home" asp-action="Liability" class="float-right">Liability</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
