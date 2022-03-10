@@ -13,7 +13,7 @@
     <p>This form scans a menu and attempts to find allergies that may appear in the menu. This can be a useful indicator of what's included in the restaurant's menu. <strong>HOWEVER</strong> it is not 100% accurate and should only serve as a guide. You should contact the restaurant directly to discuss their allergy guidance and policy.</p>
     <hr />
     <div class="row">
-        <div class="col-md-4 border-left border-right">
+        <div class="col-md-4 border-right">
             <form method="post" asp-action="ScanMenu" asp-controller="Scans" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="control-label upload-label">Upload menu to scan here:</label>
@@ -38,10 +38,6 @@
                 <p>Other things that this menu mentions: <span>@ViewData["otherCheck"]</span></p>
             </div>
         </div>
-    </div>
-
-    <div>
-        <a asp-action="Index" asp-controller="Home">Back to Main Menu</a>
     </div>
 </div>
 

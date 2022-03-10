@@ -1,92 +1,58 @@
 ﻿@model Restaurant.ViewModels.AllergyGroupFoodChain
 
-<h1>Avoid Allergies</h1>
+<div class="container">
 
-<form method="get">
-    <div class="form-group">
-        <p>
-            Search By Restaurant Name: <input id="searchString" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" /> | 
-            Select Allergy Group:
-            @Html.DropDownList("allergyselect", new SelectList(Model.AllergyGroups, "GroupID", "GroupName"), new { @id = "groupSelect" })
-            <input type="hidden" id="hiddenGroupSelect" name="selectedValue" />
-            <input type="submit" value="Search" class="search-btn" /> |
-            <a asp-action="AvoidAllergy">Back to Full List</a>
-        </p>
-    </div>
-</form>
+    <h1>Restaurants</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Restaurant Menu
-            </th>
-            <th>
-                Gluten Free Options?
-            </th>
-            <th>
-                Vegetarian Options?
-            </th>
-            <th>
-                Vegan Options?
-            </th>
-            <th>
-                Dairy Free Options?
-            </th>
-            <th>
-                Nut Free Options?
-            </th>
-            <th>
-                Other Allergies Accommodated
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-       @foreach (var item in Model.FoodChains)
-           {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FoodChainName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @if (item.MenuLink != null)
-                        {
-                        <p>Menu Provided</p>
-                        }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GlutenFreeOptions)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VegetarianOptions)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VeganOptions)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DairyFreeOptions)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NutFreeOptions)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OtherOptions)
-                </td>
-                <td><a asp-action="Details" asp-route-id="@item.FoodChainID">Details</a></td>
-            </tr>
-           }
-    </tbody>
-</table>
+    <form method="get">
+        <div class="form-group">
+            <p>
+                Search By Restaurant Name: <input id="searchString" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" /> |
+                Select Allergy Group:
+                @Html.DropDownList("allergyselect", new SelectList(Model.AllergyGroups, "GroupID", "GroupName"), new { @id = "groupSelect" })
+                <input type="hidden" id="hiddenGroupSelect" name="selectedValue" />
+                <input type="submit" value="Search" class="search-btn" /> |
+                <a asp-action="AvoidAllergy">Back to Full List</a>
+            </p>
+        </div>
+    </form>
 
+    @foreach (var item in Model.FoodChains)
+    {
+        <div class="row border-top p-3">
+            <div class="col-md-4 text-center">
+                <h4>@Html.DisplayFor(modelItem => item.FoodChainName)</h4>
+                <a class="btn btn-primary mt-3" asp-action="Details" asp-route-id="@item.FoodChainID">Details</a>
+            </div>
+            <div class="col-md-4">
+                <h5>Description</h5><p>@Html.DisplayFor(modelItem => item.Description)</p>
+                <h5>Restaurant Menu</h5>
+                @if (item.MenuLink != null)
+                {
+                    <div class="justify-content-center">
+                        <form method="post" asp-action="Download" asp-route-id="@item.FoodChainID">
+                            <input type="submit" class="btn btn-dark" value="Download" />
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <div class="justify-content-center">
+                        <p>No Menu Available</p>
+                    </div>
+                }
+            </div>
+            <div class="col-md-4">
+                <p><strong>Gluten Free Options?</strong> @Html.DisplayFor(modelItem => item.GlutenFreeOptions)</p>
+                <p><strong>Dairy Free Options?</strong> @Html.DisplayFor(modelItem => item.DairyFreeOptions)</p>
+                <p><strong>Nut Free Options?</strong> @Html.DisplayFor(modelItem => item.NutFreeOptions)</p>
+                <p><strong>Vegetarian Options?</strong> @Html.DisplayFor(modelItem => item.VegetarianOptions)</p>
+                <p><strong>Vegan Options?</strong> @Html.DisplayFor(modelItem => item.VeganOptions)</p>
+                <p><strong>Other Accommodations:</strong> @Html.DisplayFor(modelItem => item.OtherOptions)</p>
+            </div>
+        </div>
+    }
+
+</div>
 
 <p class="d-none">@ViewData["AllergyNames"]</p>
