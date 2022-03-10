@@ -1,45 +1,48 @@
 ﻿@{
-    ViewData["Title"] = "Scan Menu";
+    ViewData["Title"] = "Menu Scanner";
 }
-
-<h1>@ViewData["Title"]</h1>
-
-<h4>Scan a menu for allergens:</h4>
-<hr />
-
-<h5>What is the purpose of this page?</h5>
-<p>This form scans a menu and attempts to find allergies that may appear in the menu. This can be a useful indicator of what's included in the restaurant's menu. <strong>HOWEVER</strong> it is not 100% accurate and should only serve as a guide. You should contact the restaurant directly to discuss their allergy guidance and policy.</p>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-action="ScanMenu" asp-controller="Scans" enctype="multipart/form-data">
-            <div class="form-group">
-                <label class="control-label upload-label">Upload menu to scan here:</label>
-                <input type="file" class="form-control scan-input" name="file" />
-                <br />
-                <input type="submit" class="btn btn-dark scan-btn" value="Scan" name="ScanMenu" />
-                <span class="scan-check">Provide a file to scan.</span>
-            </div>
-        </form>
-        <span class="scan-span">Scanning Menu...</span>
-        <p>Documents can take some time to scan - please be patient.</p>
+<div class="container">
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
     </div>
-    <div class="col-md-8">
-        <textarea asp-for="@ViewData["MenuText"]" name="MenuText" class="scan-result"></textarea>
-        <div class="scan-findings">
-            <h5>This menu contains results for the following:</h5>
-            <p>Check for Gluten-Free options: <span>@ViewData["glutenfreeCheck"]</span></p>
-            <p>Check for Gluten-Containing ingredients: <span>@ViewData["glutenCheck"]</span></p>
-            <p>Check for Dairy: <span>@ViewData["dairyCheck"]</span></p>
-            <p>Check for Nuts: <span>@ViewData["nutCheck"]</span></p>
-            <p>Check for Soy: <span>@ViewData["soyCheck"]</span></p>
-            <p>Other things that this menu mentions: <span>@ViewData["otherCheck"]</span></p>
+
+    <h4>Scan a menu for allergens:</h4>
+    <hr />
+
+    <h5>What is the purpose of this scanner?</h5>
+    <p>This form scans a menu and attempts to find allergies that may appear in the menu. This can be a useful indicator of what's included in the restaurant's menu. <strong>HOWEVER</strong> it is not 100% accurate and should only serve as a guide. You should contact the restaurant directly to discuss their allergy guidance and policy.</p>
+    <hr />
+    <div class="row">
+        <div class="col-md-4 border-left border-right">
+            <form method="post" asp-action="ScanMenu" asp-controller="Scans" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="control-label upload-label">Upload menu to scan here:</label>
+                    <input type="file" class="form-control scan-input" name="file" />
+                    <br />
+                    <input type="submit" class="btn btn-dark scan-btn" value="Scan" name="ScanMenu" />
+                    <span class="scan-check">Provide a file to scan.</span>
+                </div>
+            </form>
+            <span class="scan-span">Scanning Menu...</span>
+            <p>Documents can take some time to scan - please be patient.</p>
+        </div>
+        <div class="col-md-8">
+            <textarea asp-for="@ViewData["MenuText"]" name="MenuText" class="scan-result"></textarea>
+            <div class="scan-findings">
+                <h5>This menu contains results for the following:</h5>
+                <p>Check for Gluten-Free options: <span>@ViewData["glutenfreeCheck"]</span></p>
+                <p>Check for Gluten-Containing ingredients: <span>@ViewData["glutenCheck"]</span></p>
+                <p>Check for Dairy: <span>@ViewData["dairyCheck"]</span></p>
+                <p>Check for Nuts: <span>@ViewData["nutCheck"]</span></p>
+                <p>Check for Soy: <span>@ViewData["soyCheck"]</span></p>
+                <p>Other things that this menu mentions: <span>@ViewData["otherCheck"]</span></p>
+            </div>
         </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index" asp-controller="Home">Back to Main Menu</a>
+    <div>
+        <a asp-action="Index" asp-controller="Home">Back to Main Menu</a>
+    </div>
 </div>
 
 @section Scripts {
