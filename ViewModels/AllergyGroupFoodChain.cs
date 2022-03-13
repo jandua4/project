@@ -12,7 +12,7 @@ namespace Restaurant.ViewModels
 {
     public class AllergyGroupFoodChain
     {
-        public IEnumerable<FoodChain> FoodChains { get; set; }
+        public PaginatedList<FoodChain> FoodChains { get; set; }
         public IEnumerable<Allergy> Allergies { get; set; }
         public IEnumerable<AllergyGroup> AllergyGroups { get; set; }
 

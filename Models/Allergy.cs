@@ -20,6 +20,5 @@ namespace Restaurant.Models
 
         // Navigation
         public AllergyGroup AllergyGroup { get; set; }
-        public ICollection<FoodChain> FoodChains { get; set; }
     }
 }

@@ -43,8 +43,5 @@ namespace Restaurant.Models
 
         [Display(Name = "Other Allergies Accommodated")]
         public string OtherOptions { get; set; }
-
-        // Navigation
-        public IEnumerable<Allergy> Allergies { get; set; }
     }
 }

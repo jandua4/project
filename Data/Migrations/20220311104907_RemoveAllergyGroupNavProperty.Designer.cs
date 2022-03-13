@@ -3,21 +3,38 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant.Data;
 
 namespace Restaurant.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220311104907_RemoveAllergyGroupNavProperty")]
+    partial class RemoveAllergyGroupNavProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AllergyFoodChain", b =>
+                {
+                    b.Property<int>("AllergiesAllergyID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FoodChainsFoodChainID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AllergiesAllergyID", "FoodChainsFoodChainID");
+
+                    b.HasIndex("FoodChainsFoodChainID");
+
+                    b.ToTable("AllergyFoodChain");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -247,11 +264,16 @@ namespace Restaurant.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("FoodChainID")
+                        .HasColumnType("int");
+
                     b.Property<string>("GroupName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GroupID");
+
+                    b.HasIndex("FoodChainID");
 
                     b.ToTable("AllergyGroup");
                 });
@@ -295,6 +317,21 @@ namespace Restaurant.Data.Migrations
                     b.HasKey("FoodChainID");
 
                     b.ToTable("FoodChain");
+                });
+
+            modelBuilder.Entity("AllergyFoodChain", b =>
+                {
+                    b.HasOne("Restaurant.Models.Allergy", null)
+                        .WithMany()
+                        .HasForeignKey("AllergiesAllergyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Restaurant.Models.FoodChain", null)
+                        .WithMany()
+                        .HasForeignKey("FoodChainsFoodChainID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -360,7 +397,19 @@ namespace Restaurant.Data.Migrations
 
             modelBuilder.Entity("Restaurant.Models.AllergyGroup", b =>
                 {
+                    b.HasOne("Restaurant.Models.FoodChain", null)
+                        .WithMany("AllergyGroups")
+                        .HasForeignKey("FoodChainID");
+                });
+
+            modelBuilder.Entity("Restaurant.Models.AllergyGroup", b =>
+                {
                     b.Navigation("Allergies");
+                });
+
+            modelBuilder.Entity("Restaurant.Models.FoodChain", b =>
+                {
+                    b.Navigation("AllergyGroups");
                 });
 #pragma warning restore 612, 618
         }

@@ -307,77 +307,86 @@ namespace Restaurant.Controllers
          * 
          * Author: Aman Jandu
          */
-        public IActionResult AvoidAllergy(int? allergyselect, string selectedValue, string searchString)
+        public async Task<IActionResult> AvoidAllergy(int? allergyselect, string selectedValue, string searchString, string currentFilter, int? pageNumber)
         {
-
+            // Instantiate the ViewModel
+            var viewModel = new AllergyGroupFoodChain();
+            
+            // Set up database connections
             // Allocates View Model Properties to _context Models
-            var viewModel = new AllergyGroupFoodChain
-            {
-                FoodChains = _context.FoodChains
-                .OrderBy(f => f.FoodChainName),
+            var foodChains = from f in _context.FoodChains
+                             .OrderBy(i => i.FoodChainName)
+                             .AsEnumerable()
+                             select f;
 
-                AllergyGroups = _context.AllergyGroups
-                .OrderBy(a => a.GroupName),
+            var allergies = from a in _context.Allergies
+                            .Include(g => g.AllergyGroup)
+                            select a;
 
-                Allergies = _context.Allergies
-                .Include(g => g.AllergyGroup)
-            };
+            var allergyGroups = from g in _context.AllergyGroups
+                                select g;
 
             // Search box filter
             ViewData["CurrentFilter"] = searchString;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             // Search function
             if (!string.IsNullOrEmpty(searchString))
             {
-                viewModel.FoodChains = viewModel.FoodChains.Where(f => f.FoodChainName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
-            }
+                foodChains = foodChains.Where(f => f.FoodChainName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+            }            
 
-            /*
-             * TODO:
-             * - Database query to show restaurants that match the allergy criteria
-             */
-
+            // As long as the Dropdown is not empty
             if (allergyselect != null)
             {
                 // If string is empty
                 if (string.IsNullOrEmpty(selectedValue))
                 {
-                    viewModel.FoodChains = viewModel.FoodChains;
+                    foodChains = foodChains;
                 }
 
                 // If string is 'None'
                 if (selectedValue == "None")
                 {
-                    viewModel.FoodChains = viewModel.FoodChains;
+                    foodChains = foodChains;
                 }
 
                 // Gluten-Free results only
                 if (selectedValue == "Gluten")
                 {
-                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.GlutenFreeOptions == "Yes");
+                    foodChains = foodChains.Where(f => f.GlutenFreeOptions == "Yes");
                 }
 
                 // Vegetarian results only
                 if (selectedValue == "Vegetarian")
                 {
-                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.VegetarianOptions == "Yes");
+                    foodChains = foodChains.Where(f => f.VegetarianOptions == "Yes");
                 }
 
                 // Vegetarian results only
                 if (selectedValue == "Vegan")
                 {
-                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.VeganOptions == "Yes");
+                    foodChains = foodChains.Where(f => f.VeganOptions == "Yes");
                 }
 
                 // Dairy-Free results only
                 if (selectedValue == "Dairy")
                 {
-                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.DairyFreeOptions == "Yes");
+                    foodChains = foodChains.Where(f => f.DairyFreeOptions == "Yes");
                 }
 
                 // Nut-Free results only
                 if (selectedValue == "Nuts")
                 {
-                    viewModel.FoodChains = viewModel.FoodChains.Where(f => f.NutFreeOptions == "Yes");
+                    foodChains = foodChains.Where(f => f.NutFreeOptions == "Yes");
                 }
 
 
@@ -399,32 +408,48 @@ namespace Restaurant.Controllers
                      */
 
                     // Select all allergies where the Allergy.GroupID == the value of the allergyselect dropdown. Join on the Allergy Groups table where GroupID = GroupID. Get all Allergy.Names
-                    var names = from a in viewModel.Allergies
+                    var names = from a in allergies
                                 where a.GroupID == allergyselect
-                                join g in viewModel.AllergyGroups on a.GroupID equals g.GroupID
+                                join g in allergyGroups on a.GroupID equals g.GroupID
                                 select a.Name;
 
                     // For each returned allergy, append it to a hidden element for searching.
                     foreach (var name in names)
                     {
                         ViewData["AllergyNames"] += name + ", ";
+                        System.Diagnostics.Debug.WriteLine(name);
                     }
 
                     // Split the results string by comma and space (in case the allergy name has a space)
-                    string results = ViewData["AllergyNames"].ToString();
-                    string[] matchingAllergies = results.Split(new string[] { ", "}, StringSplitOptions.None);
+                    string matches = ViewData["AllergyNames"].ToString();
+                    string[] matchingAllergies = matches.Split(',');
 
                     // Return results where OtherOptions != null and intersects with the matching allergies. Finds allergies separated by commas OR commas and spaces
-                    viewModel.FoodChains = viewModel.FoodChains
+                    foodChains = foodChains
+                        .AsEnumerable()
                         .Where(f => f.OtherOptions != null &&
                         f.OtherOptions.Split(new string[] { ", " }, StringSplitOptions.None).Intersect(matchingAllergies).Any() ||
                         f.OtherOptions != null &&
-                        f.OtherOptions.Split(',').Intersect(matchingAllergies).Any());
+                        f.OtherOptions.Split(',', StringSplitOptions.None).Intersect(matchingAllergies).Any());
 
+                    /*
+                    foodChains = foodChains
+                        .Where(f => f.OtherOptions != null &&
+                        f.OtherOptions.Split(new string[] { ", " }, StringSplitOptions.None).Intersect(matchingAllergies).Any() ||
+                        f.OtherOptions != null &&
+                        f.OtherOptions.Split(',', StringSplitOptions.None).Intersect(matchingAllergies).Any());
+                    */
                 }
             }
-            
-            return View(viewModel);
+
+            int pageSize = 10;
+
+            return View(new AllergyGroupFoodChain
+            {
+                FoodChains = await PaginatedList<FoodChain>.CreateAsync(foodChains.AsQueryable().AsNoTracking(), pageNumber ?? 1, pageSize),
+                Allergies = allergies,
+                AllergyGroups = allergyGroups
+            });
         }
 
 
