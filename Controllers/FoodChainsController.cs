@@ -307,7 +307,7 @@ namespace Restaurant.Controllers
          * 
          * Author: Aman Jandu
          */
-        public async Task<IActionResult> AvoidAllergy(int? allergyselect, string selectedValue, string searchString, string currentFilter, int? pageNumber)
+        public async Task<IActionResult> AvoidAllergy(int? pageNumber, int? allergyselect, string selectedValue, string currentFilter, string searchString)
         {
             // Instantiate the ViewModel
             var viewModel = new AllergyGroupFoodChain();
@@ -326,9 +326,6 @@ namespace Restaurant.Controllers
             var allergyGroups = from g in _context.AllergyGroups
                                 select g;
 
-            // Search box filter
-            ViewData["CurrentFilter"] = searchString;
-
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -337,6 +334,13 @@ namespace Restaurant.Controllers
             {
                 searchString = currentFilter;
             }
+
+            // Search box filter
+            ViewData["CurrentFilter"] = searchString;
+
+            // Selected Value filter
+            ViewData["selectedValue"] = selectedValue;
+            ViewData["allergyselect"] = allergyselect;
 
             // Search function
             if (!string.IsNullOrEmpty(searchString))
@@ -407,7 +411,8 @@ namespace Restaurant.Controllers
                      * and check them against the value of the "OtherOptions" column
                      */
 
-                    // Select all allergies where the Allergy.GroupID == the value of the allergyselect dropdown. Join on the Allergy Groups table where GroupID = GroupID. Get all Allergy.Names
+                    // Select all allergies where the Allergy.GroupID == the value of the allergyselect dropdown.
+                    // Join on the Allergy Groups table where GroupID = GroupID. Get all Allergy.Names
                     var names = from a in allergies
                                 where a.GroupID == allergyselect
                                 join g in allergyGroups on a.GroupID equals g.GroupID
@@ -432,17 +437,10 @@ namespace Restaurant.Controllers
                         f.OtherOptions != null &&
                         f.OtherOptions.Split(',', StringSplitOptions.None).Intersect(matchingAllergies).Any());
 
-                    /*
-                    foodChains = foodChains
-                        .Where(f => f.OtherOptions != null &&
-                        f.OtherOptions.Split(new string[] { ", " }, StringSplitOptions.None).Intersect(matchingAllergies).Any() ||
-                        f.OtherOptions != null &&
-                        f.OtherOptions.Split(',', StringSplitOptions.None).Intersect(matchingAllergies).Any());
-                    */
                 }
             }
 
-            int pageSize = 10;
+            int pageSize = 3;
 
             return View(new AllergyGroupFoodChain
             {
