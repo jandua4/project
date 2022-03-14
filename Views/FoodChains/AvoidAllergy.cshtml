@@ -11,8 +11,8 @@
                 Select Allergy Group:
                 @Html.DropDownList("allergyselect", new SelectList(Model.AllergyGroups, "GroupID", "GroupName"), new { @id = "groupSelect" })
                 <input type="hidden" id="hiddenGroupSelect" name="selectedValue" value="@ViewData["selectedValue"]" />
-                <input type="submit" value="Search" class="search-btn" /> |
-                <a class="btn btn-primary" asp-action="AvoidAllergy">Clear all filters</a>
+                <input type="submit" value="Search" class="search-btn btn btn-primary" /> |
+                <a class="btn btn-danger" asp-action="AvoidAllergy">Clear filters</a>
             </p>
         </div>
     </form>
