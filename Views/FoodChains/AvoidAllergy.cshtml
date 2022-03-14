@@ -12,7 +12,7 @@
                 @Html.DropDownList("allergyselect", new SelectList(Model.AllergyGroups, "GroupID", "GroupName"), new { @id = "groupSelect" })
                 <input type="hidden" id="hiddenGroupSelect" name="selectedValue" value="@ViewData["selectedValue"]" />
                 <input type="submit" value="Search" class="search-btn" /> |
-                <a asp-action="AvoidAllergy">Back to Full List</a>
+                <a class="btn btn-primary" asp-action="AvoidAllergy">Clear all filters</a>
             </p>
         </div>
     </form>

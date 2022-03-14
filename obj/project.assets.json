@@ -7527,19 +7527,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\GDswo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\project\\Restaurant.csproj",
+      "projectUniqueName": "C:\\Users\\GDswo\\Desktop\\Folders\\Productivity and Work\\University\\workspace\\609it\\Final Year Project\\Restaurant.csproj",
       "projectName": "Restaurant",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\project\\Restaurant.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\project\\obj\\",
+      "projectPath": "C:\\Users\\GDswo\\Desktop\\Folders\\Productivity and Work\\University\\workspace\\609it\\Final Year Project\\Restaurant.csproj",
+      "packagesPath": "C:\\Users\\GDswo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\GDswo\\Desktop\\Folders\\Productivity and Work\\University\\workspace\\609it\\Final Year Project\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\GDswo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7618,7 +7618,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

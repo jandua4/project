@@ -82,7 +82,7 @@ namespace Restaurant.Controllers
 
                         // Arrays of strings to check against.
                         // Optional TODO: check against Allergies database table to find
-                        string[] glutenfreeCheck = { "glutenfree", "gluten-free", "gluten free", "gf" };
+                        string[] glutenfreeCheck = { "glutenfree", "gluten-free", "gluten free", "gf", "non gluten", "non-gluten" };
                         string[] glutenCheck = { "gluten", "wheat", "barley", "durum", "emmer", "semolina", "spelt", "farina", "farro", "graham", "rye", "triticale", "malt", "yeast", "bread", "pastry", "pastries", "cracker", "cereal", "crouton", "beer" };
                         string[] dairyCheck = { "milk", "dairy", "cheese", "cream", "lactose", "yoghurt", "butter" };
                         string[] nutCheck = { "nut", "nuts", "peanuts" };
