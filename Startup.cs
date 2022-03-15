@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Restaurant.Data;
 using System;
+using System.Net;
 
 namespace Restaurant
 {
@@ -47,6 +49,14 @@ namespace Restaurant
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                // Public and Private IP addresses for the Web Server
+                options.KnownProxies.Add(IPAddress.Parse("127.0.0.1"));
+                options.KnownProxies.Add(IPAddress.Parse("54.161.227.85"));
+                options.KnownProxies.Add(IPAddress.Parse("172.31.92.57"));
+            });
+
             services.AddAuthorization(options => {
                 options.AddPolicy("readpolicy",
                     builder => builder.RequireRole("Admin", "Restaurant", "User"));
@@ -74,6 +84,12 @@ namespace Restaurant
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            // Forwarding for Apache to work as a reverse Proxy
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
