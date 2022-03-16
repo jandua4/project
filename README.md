@@ -5,7 +5,7 @@
 
 **To set up this web application for local testing, you need to take the following steps**:
 1. Clone the repository
-2. Use Microsoft SQL Management Studio to import the script.sql file (if you are builing the database from scratch, skip to the next heading)
+2. Use Microsoft SQL Management Studio to import the schema.sql, then data.sql file (if you are builing the database from scratch, skip to the next heading).
 3. Create an empty folder called Menus on the same directory level as the Controllers
 4. Check the appsettings.json and ensure the database connection credentials are accurate
 5. Run the application and apply any migrations that are required
